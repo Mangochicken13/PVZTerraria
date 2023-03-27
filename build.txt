@@ -1,0 +1,3 @@
+displayName = Plants Vs Zombies
+author = Mangochicken
+version = 0.0.1

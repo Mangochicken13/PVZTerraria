@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "33/fTC/WLBm6lMkeE505HbWckMW64fIHJf1w6gpl7WLNpKAwuUsOrQgj8lp72+k5RiKRz9Z0TSbseQgkFH688Q==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\lucas\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\PlantsVsZombies\\PlantsVsZombies.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\lucas\\.nuget\\packages\\tmodloader.codeassist\\0.1.5\\tmodloader.codeassist.0.1.5.nupkg.sha512"
+  ],
+  "logs": []
+}
