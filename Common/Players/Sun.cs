@@ -45,8 +45,8 @@ namespace PlantsVsZombies.Common.Players
 
         public override void OnEnterWorld(Player player)
         {
-            var modPlayer = ModContent.GetInstance<Sun>();
-            modPlayer.SunCurrent = 50;
+            var Sun = player.GetModPlayer<Sun>();
+            Sun.SunCurrent = 50;
         }
 
         private void UpdateResource()

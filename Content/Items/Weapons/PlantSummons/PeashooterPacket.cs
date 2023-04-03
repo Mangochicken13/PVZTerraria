@@ -49,7 +49,7 @@ namespace PlantsVsZombies.Content.Items.Weapons.PlantSummons
         {
             var Sun = player.GetModPlayer<Sun>();
 
-            if (Sun.SunCurrent >= SunCost)
+            if (Sun.SunCurrent >= SunCost && !Main.tile[Main.MouseWorld.ToTileCoordinates()].HasUnactuatedTile)
             {
                 Sun.SunCurrent -= SunCost;
                 return true;
@@ -60,12 +60,8 @@ namespace PlantsVsZombies.Content.Items.Weapons.PlantSummons
 
         public override void ModifyShootStats(Player player, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockback)
         {
-            var mouseLocation = Main.MouseWorld.ToTileCoordinates();
-            for (int i = 0;  i < 50; i++)
-            {
-                bool isTile = Main.tile[mouseLocation] != Main.tile.
-            }
-            return(position, velocity);
+            position = Main.MouseWorld;
+            return;
         }
     }
 }

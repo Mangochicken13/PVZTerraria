@@ -20,10 +20,12 @@ namespace PlantsVsZombies.Content.Projectiles
         public override void SetDefaults()
         {
             Projectile.width = 32;
-            Projectile.height = 48;
+            Projectile.height = 40;
+            DrawOffsetX = -5;
 
             Projectile.tileCollide = true;
 
+            Projectile.hostile = false;
             Projectile.friendly = false;
             Projectile.sentry = true;
             Projectile.minion = true;
@@ -36,6 +38,9 @@ namespace PlantsVsZombies.Content.Projectiles
 
         public override void AI()
         {
+            Projectile.velocity.Y += 0.5f;
+            if (Projectile.velocity.Y > 10) { Projectile.velocity.Y = 10f; }
+
             bool foundTarget = false;
             Vector2 targetCenter = Projectile.position;
             float attackRange = 1000f;
@@ -85,6 +90,12 @@ namespace PlantsVsZombies.Content.Projectiles
             }
 
             Visuals();
+        }
+
+        public override bool OnTileCollide(Vector2 oldVelocity)
+        {
+            Projectile.velocity.Y = 0f;
+            return false;
         }
 
         private void Visuals()

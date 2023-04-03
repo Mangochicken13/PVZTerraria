@@ -9,7 +9,6 @@ using Terraria.DataStructures;
 using Terraria.ID;
 using Microsoft.Xna.Framework;
 using PlantsVsZombies.Common.Players;
-using PlantsVsZombies.Content.Players;
 
 namespace PlantsVsZombies.Content.Items
 {
