@@ -52,12 +52,27 @@ namespace PlantsVsZombies.Common.UI
 
         public override void UpdateUI(GameTime gameTime)
         {
-            //only update the ui if it's visible
+            //only update the ui if it's visible, also using a case statement since a use case hasn't yet presented itself
             _lastUpdateUiGameTime = gameTime;
+            var InterfaceState = 0;
             if (MyInterface?.CurrentState != null)
             {
-                MyInterface.Update(gameTime);
+                InterfaceState = 1;
             }
+            else { InterfaceState = 0; }
+            switch (InterfaceState)
+            {
+                case 1:
+                    {
+                        MyInterface.Update(gameTime);
+                        break;
+                    }
+                default:
+                    {
+                        break;
+                    }
+            }
+            
         }
         public override void ModifyInterfaceLayers(List<GameInterfaceLayer> layers)
         {

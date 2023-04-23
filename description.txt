@@ -1,1 +1,7 @@
-oMg U akshually red the Dscriptshun, das so c00l of U /(//.//.//)
+This is an in-progress mod themed around the Plants Vs Zombies franchise.
+
+Currently adds:
+	2 useable items (fires a projectile)
+	1 damage class (plant damage)
+	1 resource (sun)
+	3 pickups (similar to hearts/mana stars)
