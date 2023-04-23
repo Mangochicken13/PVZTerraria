@@ -21,7 +21,8 @@ namespace PlantsVsZombies.Content.Projectiles
 
         public override void SetDefaults()
         {
-            //Setting all the stats for this projectile
+            //Setting all the stats for this projectile, including hitbox size, where the sprite draws, collision
+            //damage hitboxes, and type of projectile
             Projectile.height = 54;
             Projectile.width = 34;
             DrawOffsetX = -5;
@@ -67,10 +68,11 @@ namespace PlantsVsZombies.Content.Projectiles
         public override bool OnTileCollide(Vector2 oldVelocity)
         {
             Projectile.velocity.Y = 0f; //Making sure the projectile stops falling when it hits a tile
-            return false; //returning false here 
+            return false; //returning false here makes the vanilla behavior not run, as that would kill the projectile
         }
         public override bool TileCollideStyle(ref int width, ref int height, ref bool fallThrough, ref Vector2 hitboxCenterFrac)
         {
+            //makes sure that the projectile lands on platforms
             fallThrough = false;
             return true;
         }

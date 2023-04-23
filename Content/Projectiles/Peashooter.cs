@@ -124,6 +124,7 @@ namespace PlantsVsZombies.Content.Projectiles
                 //slightly modifying the spawn location of the secondary projectile to look more natural
                 Vector2 spawnlocation = new(Projectile.spriteDirection * 12, -8);
 
+                //spawning the projectile that will actually damage enemies
                 Projectile.NewProjectile(Projectile.GetSource_FromAI(), (Projectile.Center + spawnlocation), velocity * 7f, ModContent.ProjectileType<Pea>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
             }
 
