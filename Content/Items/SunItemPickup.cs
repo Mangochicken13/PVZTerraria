@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Terraria;
+﻿using Terraria;
 using Terraria.ModLoader;
 using Terraria.DataStructures;
 using Terraria.ID;
@@ -16,7 +11,7 @@ namespace PlantsVsZombies.Content.Items
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Sun");
+            // DisplayName.SetDefault("Sun");
 
             Main.RegisterItemAnimation(Item.type, new DrawAnimationVertical(5, 4));
 
@@ -48,7 +43,7 @@ namespace PlantsVsZombies.Content.Items
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Sun");
+            // DisplayName.SetDefault("Sun");
 
             Main.RegisterItemAnimation(Item.type, new DrawAnimationVertical(5, 4));
 
@@ -82,7 +77,7 @@ namespace PlantsVsZombies.Content.Items
         public override string Texture => "PlantsVsZombies/Content/Items/SunItemSmall";
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Sun");
+            // DisplayName.SetDefault("Sun");
 
             Main.RegisterItemAnimation(Item.type, new DrawAnimationVertical(5, 4));
 

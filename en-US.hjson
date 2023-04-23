@@ -1,0 +1,51 @@
+Mods: {
+	PlantsVsZombies: {
+		Items: {
+			SunItemLarge: {
+				DisplayName: Sun
+				Tooltip: ""
+			}
+
+			SunItemMedium: {
+				DisplayName: Sun
+				Tooltip: ""
+			}
+
+			SunItemSmall: {
+				DisplayName: Sun
+				Tooltip: ""
+			}
+
+			PeashooterPacket: {
+				DisplayName: Peashooter Packet
+				Tooltip:
+					'''
+					They appear to have come from another world
+					Maybe they can help with the newly empowered zombies that have been turning up recently
+					'''
+			}
+
+			SunflowerPacket: {
+				DisplayName: Sunflower Packet
+				Tooltip:
+					'''
+					An incredibly happy flower
+					They seem to be able to produce fun size pockets of sun energy for your use
+					'''
+			}
+		}
+
+		DamageClasses.Plants.DisplayName: Plant Damage
+
+		Projectiles: {
+			Pea.DisplayName: Pea
+			Peashooter.DisplayName: Peashooter
+			Sunflower.DisplayName: Sunflower
+		}
+
+		Keybinds: {
+			"Toggle UI.DisplayName": Toggle  U I
+			"Add 50 sun.DisplayName": Add 50 sun
+		}
+	}
+}

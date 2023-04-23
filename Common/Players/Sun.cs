@@ -1,6 +1,5 @@
 ﻿using Terraria;
 using Terraria.ModLoader;
-using Microsoft.Xna.Framework;
 
 namespace PlantsVsZombies.Common.Players
 {
@@ -43,15 +42,15 @@ namespace PlantsVsZombies.Common.Players
             UpdateResource();
         }
 
-        public override void OnEnterWorld(Player player)
+        public override void OnEnterWorld()
         {
-            var Sun = player.GetModPlayer<Sun>();
+            var Sun = Player.GetModPlayer<Sun>();  //Comment this for the official releases
             Sun.SunCurrent = 50;
         }
 
         private void UpdateResource()
         {
-            if (SunCurrent < SunRegenMax) //if current sun is less than 50
+            if (SunCurrent < SunRegenMax) //This timer only updates if you have less sun than your regen maximum
             {
                 SunRegenTimer += (SunRegenRate);
             }
@@ -59,16 +58,13 @@ namespace PlantsVsZombies.Common.Players
             if (SunRegenTimer >= 600) //ten seconds real time between regen instances (given no frame drops)
             {
                 SunRegenTimer = 0;
-                if (SunCurrent < SunRegenMax) //if current sun is less than 50 (default) or any other number (changed via accessories or consumables)
-                {
-                    RegenAmount = RegenAmount + AdditionalRegen + 25; //The player will regen 25 sun per natural regen tick
-                }
+                RegenAmount = RegenAmount + AdditionalRegen + 25; //The player will regen 25 sun per natural regen tick, plus any buffs given via accessories or consumables
             }
 
 
-            if (RegenAmount / 25 > 1)
+            if (RegenAmount / 25 > 1) //this whole block here is just so the number looks more natural as it increases in the UI
             {
-                int temp = (int) RegenAmount /25;
+                int temp = RegenAmount / 25;
                 SunCurrent += temp;
                 RegenAmount -= temp;
             }
@@ -78,7 +74,7 @@ namespace PlantsVsZombies.Common.Players
                 RegenAmount--;
             }
 
-            SunCurrent = Utils.Clamp(SunCurrent, 0, SunMax);
+            SunCurrent = Utils.Clamp(SunCurrent, 0, SunMax); //Making sure that you don't go over the limit, 9990 by default
         }
     }
 }

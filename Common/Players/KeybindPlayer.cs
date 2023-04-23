@@ -1,10 +1,8 @@
-﻿using PlantsVsZombies.Common.Systems;
+﻿using Terraria;
 using Terraria.GameInput;
 using Terraria.ModLoader;
-using System;
-using Terraria;
 using PlantsVsZombies.Common.UI;
-using Terraria.UI;
+using PlantsVsZombies.Common.Systems;
 
 namespace PlantsVsZombies.Common.Players
 {
@@ -12,7 +10,7 @@ namespace PlantsVsZombies.Common.Players
     {
         public override void ProcessTriggers(TriggersSet triggersSet)
         {
-            if (KeybindSystem.ToggleUI.JustPressed)
+            if (KeybindSystem.Dev_ToggleUI.JustPressed)
             {
                 if (ModContent.GetInstance<SunUISystem>().MyInterface?.CurrentState == null)
                 {
@@ -24,6 +22,12 @@ namespace PlantsVsZombies.Common.Players
                     ModContent.GetInstance<SunUISystem>().HideMyUI();
                     Main.NewText("Ui Hidden");
                 }
+            }
+
+            if (KeybindSystem.Dev_ExtraSun.JustPressed)
+            {
+                var Sun = Player.GetModPlayer<Sun>();
+                Sun.SunCurrent += 50;
             }
         }
     }

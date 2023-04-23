@@ -1,45 +1,40 @@
 ﻿using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using PlantsVsZombies.Common.Systems;
-using PlantsVsZombies.Common.Players;
 using PlantsVsZombies.Content.Projectiles;
-using static PlantsVsZombies.Utilities;
+using PlantsVsZombies.Common.Players;
+using Terraria.DataStructures;
 using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 
+using static PlantsVsZombies.Utilities;
+using PlantsVsZombies.Common.Systems;
 
 namespace PlantsVsZombies.Content.Items.Weapons.PlantSummons
 {
-    internal class PeashooterPacket : ModItem
+    public class SunflowerPacket : ModItem
     {
         private int sunCost;
         public override void SetStaticDefaults()
         {
-            // DisplayName.SetDefault("Peashooter");
-            // Tooltip.SetDefault("They appear to have come from another world\nMaybe they can help with the newly empowered zombies that have been turning up recently");
+            // DisplayName.SetDefault("Sunflower");
+            // Tooltip.SetDefault("An incredibly happy flower\nThey seem to be able to produce fun size pockets of sun energy for your use");
         }
 
         public override void SetDefaults()
         {
-            Item.DamageType = ModContent.GetInstance<Plants>();
-            Item.damage = 11;
             Item.useStyle = ItemUseStyleID.Swing;
-            Item.knockBack = 0.2f;
             Item.consumable = false;
-            Item.shoot = ModContent.ProjectileType<Peashooter>(); //Make projectile (sentry), It's projectiles, and ai at a later date (done)
-            Item.noMelee = true;
-            Item.sentry = true;
-            Item.autoReuse = false;
-
-            Item.height = 20;
-            Item.width = 30;
+            Item.width = 24;
+            Item.height = 36;
             Item.useTime = 10;
             Item.useAnimation = 10;
+            Item.DamageType = ModContent.GetInstance<Plants>();
+            Item.shoot = ModContent.ProjectileType<Sunflower>();
+            Item.noMelee = true;
 
-            sunCost = 100;
+            sunCost = 50;
         }
-
         public override void ModifyTooltips(List<TooltipLine> tooltips)
         {
             tooltips.Add(new TooltipLine(Mod, "Sun Cost", $"Uses {sunCost} Sun"));
@@ -56,7 +51,6 @@ namespace PlantsVsZombies.Content.Items.Weapons.PlantSummons
             }
             else { return false; }
         }
-
         public override void ModifyShootStats(Player player, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockback)
         {
             position = Main.MouseWorld;
