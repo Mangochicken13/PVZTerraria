@@ -2,7 +2,7 @@ Mods: {
 	PlantsVsZombies: {
 		Items: {
 			SunItemLarge: {
-				DisplayName: Sun
+				DisplayName: Large Sun
 				Tooltip: ""
 			}
 
@@ -12,7 +12,7 @@ Mods: {
 			}
 
 			SunItemSmall: {
-				DisplayName: Sun
+				DisplayName: Small Sun
 				Tooltip: ""
 			}
 

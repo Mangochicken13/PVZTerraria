@@ -42,10 +42,13 @@ namespace PlantsVsZombies.Content.Items.Weapons.PlantSummons
 
         public override bool CanUseItem(Player player)
         {
+            //checking if the player has enough sun to use the item
             var Sun = player.GetModPlayer<Sun>();
 
-            if (Sun.SunCurrent >= sunCost && (!Main.tile[Main.MouseWorld.ToTileCoordinates()].HasUnactuatedTile || Main.tile[Main.MouseWorld.ToTileCoordinates()].Equals(TileID.Platforms)))
+            //checks that the tile selected doesn't contain a solid tile
+            if (Sun.SunCurrent >= sunCost && (!Main.tile[Main.MouseWorld.ToTileCoordinates()].HasTile || Main.tile[Main.MouseWorld.ToTileCoordinates()].BlockType.Equals(TileID.Platforms)))
             {
+                //the spot is valid, so take away the sun cost, and then return true
                 Sun.SunCurrent -= sunCost;
                 return true;
             }
@@ -53,6 +56,7 @@ namespace PlantsVsZombies.Content.Items.Weapons.PlantSummons
         }
         public override void ModifyShootStats(Player player, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockback)
         {
+            //make the projectile spawn at the mouse cursor
             position = Main.MouseWorld;
             return;
         }

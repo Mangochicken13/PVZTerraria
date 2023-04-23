@@ -14,6 +14,8 @@ using PlantsVsZombies.Common.Systems;
 
 namespace PlantsVsZombies.Common.UI
 {
+    //TLDR: this lets the player see how much sun they currently have
+    //I barely understand this part myself, there is a guide on the tModLoader wiki pages
     class SunUISystem : ModSystem
     {
 
@@ -22,7 +24,7 @@ namespace PlantsVsZombies.Common.UI
 
         private GameTime _lastUpdateUiGameTime;
 
-
+        //hiding and showing the ui by a hotkey
         internal void ShowMyUI()
         {
             MyInterface?.SetState(MyUI);
@@ -34,7 +36,7 @@ namespace PlantsVsZombies.Common.UI
 
         public override void Load()
         {
-            if (!Main.dedServ)
+            if (!Main.dedServ) //dedServ means dedicated server, so the ui doesn't load on the server, as it doesn't need to
             {
                 MyInterface = new UserInterface();
 
@@ -50,6 +52,7 @@ namespace PlantsVsZombies.Common.UI
 
         public override void UpdateUI(GameTime gameTime)
         {
+            //only update the ui if it's visible
             _lastUpdateUiGameTime = gameTime;
             if (MyInterface?.CurrentState != null)
             {
@@ -58,6 +61,7 @@ namespace PlantsVsZombies.Common.UI
         }
         public override void ModifyInterfaceLayers(List<GameInterfaceLayer> layers)
         {
+            //this block puts the sun ui directly behind the mouse text layer (text when hovering an item with the mouse)
             int mouseTextIndex = layers.FindIndex(layer => layer.Name.Equals("Vanilla: Mouse Text"));
             if (mouseTextIndex != -1)
             {
@@ -80,7 +84,9 @@ namespace PlantsVsZombies.Common.UI
         private UIText value;
         private UIElement panel;
         private UIImage sunBg;
-        readonly string[] plantWeapons = new string[1] { "PeashooterPacket" };
+
+        //this method was my original way of checking the item the player was holding, until a better way was made known to me
+        readonly string[] plantWeapons = new string[2] { "PeashooterPacket", "SunflowerPacket" };
         public override void OnInitialize()
         {
             panel = new UIElement();
@@ -108,6 +114,7 @@ namespace PlantsVsZombies.Common.UI
 
         public override void Draw(SpriteBatch spriteBatch)
         {
+            //this block makes the ui not show when you aren't holding a plant or packet
             if (!Main.LocalPlayer.HeldItem.CountsAsClass<Plants>())
                 return;
 
@@ -116,6 +123,7 @@ namespace PlantsVsZombies.Common.UI
 
         public override void Update(GameTime gameTime)
         {
+            //same as above, only updates if holding a plant
             if (!Main.LocalPlayer.HeldItem.CountsAsClass<Plants>())
                 return;
 

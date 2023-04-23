@@ -7,6 +7,7 @@ namespace PlantsVsZombies.Content.Projectiles
 {
     internal class Pea : ModProjectile
     {
+        //this is a simple projectile: travels in a straight line for a certain amount of time, and hits one enemy
         public override void SetStaticDefaults()
         {
             // DisplayName.SetDefault("Pea");

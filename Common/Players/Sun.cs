@@ -11,12 +11,13 @@ namespace PlantsVsZombies.Common.Players
         public int SunMax;
         public int SunRegenMax;
         public float SunRegenRate; 
-        internal float SunRegenTimer; //the iterable timer variable
+        internal float SunRegenTimer; //the iterable timer variable, only available in this file (local)
         public int SunCost; //public, ie, available for anything that utilises this mod player's stats
         public int RegenAmount;
         public int AdditionalRegen;
         public override void Initialize()
         {
+            //currently this sets the default stats of variables, so that they can be edited later, via in-game features
             SunRegenRate = 1;
             SunMax = SunDefaultMax;
             SunRegenMax = SunDefaultRegenMax; //so that accessories can change the regen maximum
@@ -24,6 +25,7 @@ namespace PlantsVsZombies.Common.Players
 
         public override void ResetEffects()
         {
+            //used for resetting variable on player death, same with function below - UpdateDead()
             ResetVariables();
         }
 
@@ -34,36 +36,45 @@ namespace PlantsVsZombies.Common.Players
 
         private void ResetVariables()
         {
+            //sets the regen maximum to the default maximum, to enable changes via other methods in the future
             SunRegenMax = SunDefaultRegenMax;
         }
 
         public override void PostUpdateMiscEffects()
         {
+            //updating the resource, goes into detail at the end of the file
             UpdateResource();
         }
 
         public override void OnEnterWorld()
         {
-            var Sun = Player.GetModPlayer<Sun>();  //Comment this for the official releases
+            //gives you 50 sun to start off with, temporary feature
+            var Sun = Player.GetModPlayer<Sun>();  ///Comment this for the official releases
             Sun.SunCurrent = 50;
         }
 
         private void UpdateResource()
         {
-            if (SunCurrent < SunRegenMax) //This timer only updates if you have less sun than your regen maximum
+            //This timer only updates if you have less sun than your regen maximum (50)
+            if (SunCurrent < SunRegenMax)
             {
                 SunRegenTimer += (SunRegenRate);
             }
 
-            if (SunRegenTimer >= 600) //ten seconds real time between regen instances (given no frame drops)
+            //ten seconds real time between regen instances (given no frame drops)
+            if (SunRegenTimer >= 600)
             {
+                //resetting the iterable
                 SunRegenTimer = 0;
-                RegenAmount = RegenAmount + AdditionalRegen + 25; //The player will regen 25 sun per natural regen tick, plus any buffs given via accessories or consumables
+
+                //The player will regen 25 sun per natural regen tick, plus any buffs given via accessories or consumables
+                RegenAmount = RegenAmount + AdditionalRegen + 25;
             }
 
-
-            if (RegenAmount / 25 > 1) //this whole block here is just so the number looks more natural as it increases in the UI
+            //this whole block here is just so the number looks more natural as it increases in the UI
+            if (RegenAmount / 25 > 1)
             {
+                //math to make the current sun increment faster
                 int temp = RegenAmount / 25;
                 SunCurrent += temp;
                 RegenAmount -= temp;
@@ -74,7 +85,8 @@ namespace PlantsVsZombies.Common.Players
                 RegenAmount--;
             }
 
-            SunCurrent = Utils.Clamp(SunCurrent, 0, SunMax); //Making sure that you don't go over the limit, 9990 by default
+            //Making sure that you don't go over the limit, 9990 by default
+            SunCurrent = Utils.Clamp(SunCurrent, 0, SunMax); 
         }
     }
 }
