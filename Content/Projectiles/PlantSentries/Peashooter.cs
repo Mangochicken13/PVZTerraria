@@ -3,10 +3,11 @@ using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
 using PlantsVsZombies.Common.Systems;
 using static PlantsVsZombies.Utilities;
+using static Terraria.ModLoader.PlayerDrawLayer;
 
 //See Content/Projectiles/Sunflower for more detailed explanations of common functions
 
-namespace PlantsVsZombies.Content.Projectiles
+namespace PlantsVsZombies.Content.Projectiles.PlantSentries
 {
     internal class Peashooter : ModProjectile
     {
@@ -39,6 +40,7 @@ namespace PlantsVsZombies.Content.Projectiles
 
         public override void AI()
         {
+
             //gravity
             Projectile.velocity.Y += 0.5f;
             if (Projectile.velocity.Y > 12) { Projectile.velocity.Y = 12f; }
@@ -54,7 +56,7 @@ namespace PlantsVsZombies.Content.Projectiles
             Vector2[] targettingArea = {
                     ppos + new Vector2(0, 4),
                     ppos + new Vector2(160, 64),
-                    ppos + new Vector2(960, 64), 
+                    ppos + new Vector2(960, 64),
                     ppos + new Vector2(960, -64),
                     ppos + new Vector2(160, -64),
                     ppos + new Vector2(0, -4),
@@ -125,7 +127,7 @@ namespace PlantsVsZombies.Content.Projectiles
                 Vector2 spawnlocation = new(Projectile.spriteDirection * 12, -8);
 
                 //spawning the projectile that will actually damage enemies
-                Projectile.NewProjectile(Projectile.GetSource_FromAI(), (Projectile.Center + spawnlocation), velocity * 7f, ModContent.ProjectileType<Pea>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
+                Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center + spawnlocation, velocity * 7f, ModContent.ProjectileType<Pea>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
             }
 
             //projectiles are killed/despawned when their player dies

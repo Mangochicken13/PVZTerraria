@@ -1,7 +1,6 @@
 ﻿using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using PlantsVsZombies.Content.Projectiles;
 using PlantsVsZombies.Common.Players;
 using Terraria.DataStructures;
 using Microsoft.Xna.Framework;
@@ -9,6 +8,7 @@ using System.Collections.Generic;
 
 using static PlantsVsZombies.Utilities;
 using PlantsVsZombies.Common.Systems;
+using PlantsVsZombies.Content.Projectiles.PlantSentries;
 
 namespace PlantsVsZombies.Content.Items.Weapons.PlantSummons
 {
@@ -45,10 +45,8 @@ namespace PlantsVsZombies.Content.Items.Weapons.PlantSummons
             //checking if the player has enough sun to use the item
             var Sun = player.GetModPlayer<Sun>();
 
-            //checks that the tile selected doesn't contain a solid tile
-            if (Sun.SunCurrent >= sunCost && (!Main.tile[Main.MouseWorld.ToTileCoordinates()].HasTile || Main.tile[Main.MouseWorld.ToTileCoordinates()].BlockType.Equals(TileID.Platforms)))
+            if (Sun.SunCurrent >= sunCost && ((!Main.tileSolid[Main.tile[Main.MouseWorld.ToTileCoordinates()].TileType] || Main.tileSolidTop[Main.tile[Main.MouseWorld.ToTileCoordinates()].TileType]) || !Main.tile[Main.MouseWorld.ToTileCoordinates()].HasTile))
             {
-                //the spot is valid, so take away the sun cost, and then return true
                 Sun.SunCurrent -= sunCost;
                 return true;
             }
@@ -56,8 +54,14 @@ namespace PlantsVsZombies.Content.Items.Weapons.PlantSummons
         }
         public override void ModifyShootStats(Player player, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockback)
         {
-            //make the projectile spawn at the mouse cursor
-            position = Main.MouseWorld;
+            var potentialTile = Main.MouseWorld.ToTileCoordinates();
+
+            while (!Main.tileSolid[Main.tile[potentialTile].TileType] || !Main.tile[potentialTile].HasTile)
+            {
+                potentialTile += new Point(0, 1);
+            }
+            position = potentialTile.ToWorldCoordinates() - new Vector2(0, 35);
+            if (Main.tile[potentialTile].IsHalfBlock) { position += new Vector2(0, 8); }
             return;
         }
     }

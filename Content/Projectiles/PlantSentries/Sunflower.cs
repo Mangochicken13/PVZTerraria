@@ -5,7 +5,7 @@ using Terraria.ID;
 using Microsoft.Xna.Framework;
 using PlantsVsZombies.Content.Items;
 
-namespace PlantsVsZombies.Content.Projectiles
+namespace PlantsVsZombies.Content.Projectiles.PlantSentries
 {
     internal class Sunflower : ModProjectile
     {
@@ -14,7 +14,7 @@ namespace PlantsVsZombies.Content.Projectiles
         public override void SetStaticDefaults()
         {
             // DisplayName.SetDefault("Sunflower"); -this method has become outdated with the latest update to tModLoader, in favour of a localisation file
-            
+
             //Setting the amount of frames for the projectile, tells the game where to divide up the image for the projectile
             Main.projFrames[Type] = 4;
         }

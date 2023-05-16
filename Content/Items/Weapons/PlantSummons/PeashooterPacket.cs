@@ -3,11 +3,10 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using PlantsVsZombies.Common.Systems;
 using PlantsVsZombies.Common.Players;
-using PlantsVsZombies.Content.Projectiles;
 using static PlantsVsZombies.Utilities; //attempted to use a utility function, didn't have expected results
 using Microsoft.Xna.Framework;
 using System.Collections.Generic;
-
+using PlantsVsZombies.Content.Projectiles.PlantSentries;
 
 namespace PlantsVsZombies.Content.Items.Weapons.PlantSummons
 {
@@ -48,10 +47,9 @@ namespace PlantsVsZombies.Content.Items.Weapons.PlantSummons
 
         public override bool CanUseItem(Player player)
         {
-            //same as sunflower packet, checks the player can use the item
             var Sun = player.GetModPlayer<Sun>();
 
-            if (Sun.SunCurrent >= sunCost && (!Main.tile[Main.MouseWorld.ToTileCoordinates()].HasUnactuatedTile || Main.tile[Main.MouseWorld.ToTileCoordinates()].Equals(TileID.Platforms)))
+            if (Sun.SunCurrent >= sunCost && ((!Main.tileSolid[Main.tile[Main.MouseWorld.ToTileCoordinates()].TileType] || Main.tileSolidTop[Main.tile[Main.MouseWorld.ToTileCoordinates()].TileType]) || !Main.tile[Main.MouseWorld.ToTileCoordinates()].HasTile))
             {
                 Sun.SunCurrent -= sunCost;
                 return true;
@@ -61,8 +59,15 @@ namespace PlantsVsZombies.Content.Items.Weapons.PlantSummons
 
         public override void ModifyShootStats(Player player, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockback)
         {
-            //set projectile position to the mouse cursor
-            position = Main.MouseWorld;
+            var potentialTile = Main.MouseWorld.ToTileCoordinates();
+
+            while (!Main.tileSolid[Main.tile[potentialTile].TileType] || !Main.tile[potentialTile].HasTile)
+            {
+                potentialTile += new Point(0, 1);
+            }
+            position = potentialTile.ToWorldCoordinates() - new Vector2(0, 29);
+            if (Main.tile[potentialTile].IsHalfBlock) { position += new Vector2(0, 8); }
+
             return;
         }
     }

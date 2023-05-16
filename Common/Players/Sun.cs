@@ -7,12 +7,11 @@ namespace PlantsVsZombies.Common.Players
     {
         public int SunCurrent = 0;
         public const int SunDefaultMax = 9990; //this is the maximum sun in pvz2, so it made sense as a max here too
-        public const int SunDefaultRegenMax = 50; //this value sets the default maximum sun
+        public const int SunDefaultRegenMax = 50; //this value sets the default maximum sun via regen
         public int SunMax;
         public int SunRegenMax;
         public float SunRegenRate; 
-        internal float SunRegenTimer; //the iterable timer variable, only available in this file (local)
-        public int SunCost; //public, ie, available for anything that utilises this mod player's stats
+        private float SunRegenTimer; //the iterable timer variable, only available in this file (local)
         public int RegenAmount;
         public int AdditionalRegen;
         public override void Initialize()
@@ -86,6 +85,11 @@ namespace PlantsVsZombies.Common.Players
             }
 
             //Making sure that you don't go over the limit, 9990 by default
+            while(SunCurrent > 9990) ///note to self - remove this for official release
+            {
+                SunCurrent--;
+                continue;
+            }
             SunCurrent = Utils.Clamp(SunCurrent, 0, SunMax); 
         }
     }

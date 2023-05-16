@@ -9,7 +9,6 @@ using System.Collections.Generic;
 using System.Drawing.Text;
 using PlantsVsZombies.Common.Players;
 using PlantsVsZombies.Content.Items.Weapons.PlantSummons;
-using System.Linq;
 using PlantsVsZombies.Common.Systems;
 
 namespace PlantsVsZombies.Common.UI
@@ -101,7 +100,9 @@ namespace PlantsVsZombies.Common.UI
         private UIImage sunBg;
 
         //this method was my original way of checking the item the player was holding, until a better way was made known to me
+#pragma warning disable IDE0052 // Remove unread private members
         readonly string[] plantWeapons = new string[2] { "PeashooterPacket", "SunflowerPacket" };
+#pragma warning restore IDE0052 // Remove unread private members
         public override void OnInitialize()
         {
             panel = new UIElement();

@@ -47,5 +47,7 @@ Mods: {
 			"Toggle UI.DisplayName": Toggle  U I
 			"Add 50 sun.DisplayName": Add 50 sun
 		}
+
+		NPCs.PvZZombie.DisplayName: Pv Z Zombie
 	}
 }
