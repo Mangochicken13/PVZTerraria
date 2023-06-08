@@ -29,9 +29,6 @@ namespace PlantsVsZombies.Content.Projectiles.PlantSentries
 
             Projectile.hostile = false;
             Projectile.friendly = false;
-            Projectile.sentry = true;
-            Projectile.minion = true;
-            Projectile.minionSlots = -1;
             Projectile.DamageType = ModContent.GetInstance<Plants>();
             Projectile.penetrate = -1;
             Projectile.timeLeft = 7200;

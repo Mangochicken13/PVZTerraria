@@ -13,11 +13,13 @@ namespace PlantsVsZombies.Content.Items.Weapons.PlantSummons
     internal class PeashooterPacket : ModItem
     {
         private int sunCost;
+        /*
         public override void SetStaticDefaults()
         {
             // DisplayName.SetDefault("Peashooter"); -again, deprecated method
             // Tooltip.SetDefault("They appear to have come from another world\nMaybe they can help with the newly empowered zombies that have been turning up recently");
         }
+        */
 
         public override void SetDefaults()
         {

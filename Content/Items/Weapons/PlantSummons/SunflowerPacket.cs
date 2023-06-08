@@ -54,6 +54,9 @@ namespace PlantsVsZombies.Content.Items.Weapons.PlantSummons
         }
         public override void ModifyShootStats(Player player, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockback)
         {
+            SentrySpawningMethod(ref position, Main.MouseWorld, 56);
+
+            /*
             var potentialTile = Main.MouseWorld.ToTileCoordinates();
 
             while (!Main.tileSolid[Main.tile[potentialTile].TileType] || !Main.tile[potentialTile].HasTile)
@@ -63,6 +66,7 @@ namespace PlantsVsZombies.Content.Items.Weapons.PlantSummons
             position = potentialTile.ToWorldCoordinates() - new Vector2(0, 35);
             if (Main.tile[potentialTile].IsHalfBlock) { position += new Vector2(0, 8); }
             return;
+            */
         }
     }
 }

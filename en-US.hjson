@@ -33,6 +33,11 @@ Mods: {
 					They seem to be able to produce fun size pockets of sun energy for your use
 					'''
 			}
+
+			RotobagaPacket: {
+				DisplayName: Rotobaga Packet
+				Tooltip: ""
+			}
 		}
 
 		DamageClasses.Plants.DisplayName: Plant Damage
