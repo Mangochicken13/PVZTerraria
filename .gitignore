@@ -1,6 +1,6 @@
 
 *.vsidx
 *.csproj
-*.sln
 .vs/
 *.v2
+Assets/Ui/ideal.gif

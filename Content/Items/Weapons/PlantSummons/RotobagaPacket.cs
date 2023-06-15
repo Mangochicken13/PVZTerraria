@@ -1,4 +1,5 @@
 ﻿using Terraria.ModLoader;
+using PlantsVsZombies.Content.Projectiles;
 
 namespace PlantsVsZombies.Content.Items.Weapons.PlantSummons
 {
@@ -11,7 +12,7 @@ namespace PlantsVsZombies.Content.Items.Weapons.PlantSummons
         public override void SetDefaults()
         {
             QuickItem.SetPlantSummon(this, 40, 40, 5, 0, 15, 15);
-            Item.shoot = ModContent.ProjectileType<Rotobaga>();
+            Item.shoot = ModContent.ProjectileType<Projectiles.PlantSentries.Rotobaga>();
 
             sunCost = 175;
         }

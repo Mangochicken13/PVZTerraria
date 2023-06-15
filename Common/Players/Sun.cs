@@ -83,14 +83,6 @@ namespace PlantsVsZombies.Common.Players
                 SunCurrent++;
                 RegenAmount--;
             }
-
-            //Making sure that you don't go over the limit, 9990 by default
-            while(SunCurrent > 9990) ///note to self - remove this for official release
-            {
-                SunCurrent--;
-                continue;
-            }
-            SunCurrent = Utils.Clamp(SunCurrent, 0, SunMax); 
         }
     }
 }

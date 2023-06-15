@@ -3,13 +3,12 @@ using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
 using PlantsVsZombies.Common.Systems;
 using static PlantsVsZombies.Utilities;
-using static Terraria.ModLoader.PlayerDrawLayer;
 
 //See Content/Projectiles/Sunflower for more detailed explanations of common functions
 
 namespace PlantsVsZombies.Content.Projectiles.PlantSentries
 {
-    internal class Peashooter : ModProjectile
+    public class Peashooter : ModProjectile
     {
 
         public override void SetStaticDefaults()
@@ -33,11 +32,11 @@ namespace PlantsVsZombies.Content.Projectiles.PlantSentries
             Projectile.penetrate = -1;
             Projectile.timeLeft = 7200;
             Projectile.usesLocalNPCImmunity = true;
+            Projectile.netImportant = true;
         }
 
         public override void AI()
         {
-
             //gravity
             Projectile.velocity.Y += 0.5f;
             if (Projectile.velocity.Y > 12) { Projectile.velocity.Y = 12f; }
@@ -49,19 +48,18 @@ namespace PlantsVsZombies.Content.Projectiles.PlantSentries
 
             //creating a polygon of Vector2 points, where the peashooter should target enemies in
             //variable ppos is simply to shorten each line, as Projectile.Center is a relatively long term to type out
-            Vector2 ppos = Projectile.Center;
+            Vector2 pPos = Projectile.Center;
             Vector2[] targettingArea = {
-                    ppos + new Vector2(0, 4),
-                    ppos + new Vector2(160, 64),
-                    ppos + new Vector2(960, 64),
-                    ppos + new Vector2(960, -64),
-                    ppos + new Vector2(160, -64),
-                    ppos + new Vector2(0, -4),
-                    ppos + new Vector2(-160, -64),
-                    ppos + new Vector2(-960, -64),
-                    ppos + new Vector2(-960, 64),
-                    ppos + new Vector2(-160, 64)
-                };
+                    pPos + new Vector2(0, 4),
+                    pPos + new Vector2(160, 64),
+                    pPos + new Vector2(960, 64),
+                    pPos + new Vector2(960, -64),
+                    pPos + new Vector2(160, -64),
+                    pPos + new Vector2(0, -4),
+                    pPos + new Vector2(-160, -64),
+                    pPos + new Vector2(-960, -64),
+                    pPos + new Vector2(-960, 64),
+                    pPos + new Vector2(-160, 64)};
 
             //targetting function | Main.maxNPCs is the total available NPC slots, so this for loop cycles through every possible NPC
             for (int i = 0; i < Main.maxNPCs; i++)
@@ -137,8 +135,8 @@ namespace PlantsVsZombies.Content.Projectiles.PlantSentries
             //animating
             Visuals();
 
-
-            /*bool foundTarget = false;
+            //Old targeting code, didn't have desired output
+            /**bool foundTarget = false;
             Vector2 targetCenter = Projectile.position;
             float attackRange = 1000f;
             NPC target = null;
@@ -162,7 +160,7 @@ namespace PlantsVsZombies.Content.Projectiles.PlantSentries
                         target = potentialTarget;
                     }
                 }
-            }*/                          ///Old targeting code, didn't have desired output
+            }*/
 
         }
 

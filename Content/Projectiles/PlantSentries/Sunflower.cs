@@ -7,7 +7,7 @@ using PlantsVsZombies.Content.Items;
 
 namespace PlantsVsZombies.Content.Projectiles.PlantSentries
 {
-    internal class Sunflower : ModProjectile
+    public class Sunflower : ModProjectile
     {
         //initially setting the time for sun production, at 15 seconds (60 ticks per second)
         float sunProductionTime = 900;
@@ -23,19 +23,16 @@ namespace PlantsVsZombies.Content.Projectiles.PlantSentries
         {
             //Setting all the stats for this projectile, including hitbox size, where the sprite draws, collision
             //damage hitboxes, and type of projectile
-            Projectile.height = 54;
-            Projectile.width = 34;
+            Projectile.height = 46;
+            Projectile.width = 28;
             DrawOffsetX = -5;
-
+            DrawOriginOffsetY = -8;
             Projectile.tileCollide = true;
 
-            Projectile.friendly = false;
+            Projectile.friendly = false; //making it not interact with NPCs
             Projectile.hostile = false;
             Projectile.timeLeft = 7200;
-
-            Projectile.minion = true;
-            Projectile.sentry = true;
-            Projectile.minionSlots = -1;
+            Projectile.netImportant = true;
         }
 
         public override void AI()

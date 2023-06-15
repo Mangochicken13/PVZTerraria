@@ -1,18 +1,20 @@
 ﻿using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using PlantsVsZombies.Common.Systems;
-using PlantsVsZombies.Common.Players;
-using static PlantsVsZombies.Utilities; //attempted to use a utility function, didn't have expected results
 using Microsoft.Xna.Framework;
 using System.Collections.Generic;
+using PlantsVsZombies.Common.Systems;
+using PlantsVsZombies.Common.Players;
 using PlantsVsZombies.Content.Projectiles.PlantSentries;
+using Microsoft.Xna.Framework.Graphics;
+using static PlantsVsZombies.Utilities.PlantSpecificUtils;
 
 namespace PlantsVsZombies.Content.Items.Weapons.PlantSummons
 {
-    internal class PeashooterPacket : ModItem
+    public class PeashooterPacket : ModItem
     {
-        private int sunCost;
+        private int sunCost = 100;
+        private int cooldown = 450;
         /*
         public override void SetStaticDefaults()
         {
@@ -29,16 +31,13 @@ namespace PlantsVsZombies.Content.Items.Weapons.PlantSummons
             Item.useStyle = ItemUseStyleID.Swing;
             Item.knockBack = 0.2f;
             Item.consumable = false;
-            Item.shoot = ModContent.ProjectileType<Peashooter>(); //Make projectile (sentry), It's projectiles, and ai at a later date (done)
+            Item.shoot = ModContent.ProjectileType<Peashooter>();
             Item.noMelee = true;
-            Item.sentry = true;
 
             Item.height = 20;
             Item.width = 30;
             Item.useTime = 10;
             Item.useAnimation = 10;
-
-            sunCost = 100;
         }
 
         public override void ModifyTooltips(List<TooltipLine> tooltips)
@@ -49,28 +48,21 @@ namespace PlantsVsZombies.Content.Items.Weapons.PlantSummons
 
         public override bool CanUseItem(Player player)
         {
-            var Sun = player.GetModPlayer<Sun>();
-
-            if (Sun.SunCurrent >= sunCost && ((!Main.tileSolid[Main.tile[Main.MouseWorld.ToTileCoordinates()].TileType] || Main.tileSolidTop[Main.tile[Main.MouseWorld.ToTileCoordinates()].TileType]) || !Main.tile[Main.MouseWorld.ToTileCoordinates()].HasTile))
+            if (CheckCanUse(player, sunCost, Name, cooldown))
             {
-                Sun.SunCurrent -= sunCost;
                 return true;
             }
-            else { return false; }
+            else return false;
+        }
+
+        public override void PostDrawInInventory(SpriteBatch spriteBatch, Vector2 position, Rectangle frame, Color drawColor, Color itemColor, Vector2 origin, float scale)
+        {
+            DrawPlantCooldown(ref spriteBatch, ref position, ref scale, Name, 450);
         }
 
         public override void ModifyShootStats(Player player, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockback)
         {
-            var potentialTile = Main.MouseWorld.ToTileCoordinates();
-
-            while (!Main.tileSolid[Main.tile[potentialTile].TileType] || !Main.tile[potentialTile].HasTile)
-            {
-                potentialTile += new Point(0, 1);
-            }
-            position = potentialTile.ToWorldCoordinates() - new Vector2(0, 29);
-            if (Main.tile[potentialTile].IsHalfBlock) { position += new Vector2(0, 8); }
-
-            return;
+            SentrySpawningMethod(ref position, 42);
         }
     }
 }
