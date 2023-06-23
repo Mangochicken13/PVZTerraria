@@ -24,6 +24,10 @@ namespace PlantsVsZombies.Common.Systems
             recipe.AddIngredient(ItemID.Daybloom, 2);
             recipe.AddTile(TileID.WorkBenches);
             recipe.Register();
+
+            recipe = Recipe.Create(ModContent.ItemType<RotobagaPacket>());
+            recipe.AddIngredient(ItemID.DirtBlock);
+            recipe.Register();
         }
     }
 }

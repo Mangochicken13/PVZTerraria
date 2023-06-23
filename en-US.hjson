@@ -47,6 +47,7 @@ Mods: {
 			Peashooter.DisplayName: Peashooter
 			Sunflower.DisplayName: Sunflower
 			Rotobaga.DisplayName: Rotobaga
+			RotobagaShot.DisplayName: Rotobaga Shot
 		}
 
 		Keybinds: {

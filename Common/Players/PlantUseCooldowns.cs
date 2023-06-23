@@ -1,19 +1,20 @@
 ﻿using System.Collections.Generic;
-using Terraria;
-using Terraria.ID;
 using Terraria.ModLoader;
-using PlantsVsZombies.Content.Items.Weapons.PlantSummons;
-using System;
 
 namespace PlantsVsZombies.Common.Players
 {
     public class PlantTimers : ModPlayer
     {
+        public int[] _plantTimers;
+
         public Dictionary<string, int> plantTimer = new();
         public override void Initialize()
         {   //remember 60 ticks per second, cooldowns in seconds listed after each line as comments
             plantTimer.Add("SunflowerPacket", 0); //10s
             plantTimer.Add("PeashooterPacket", 0); //7.5s
+            plantTimer.Add("RotobagaPacket", 0); //15s
+
+            _plantTimers = new int[PlantID.Count];
         }
 
         public override void PostUpdateMiscEffects()
@@ -25,6 +26,16 @@ namespace PlantsVsZombies.Common.Players
                     plantTimer[i]--;
                 }
             }
+
+            for (int i = 0; i < PlantID.Count; i++)
+            {
+                if (_plantTimers[i] > 0)
+                {
+                    _plantTimers[i]--;
+                }
+            }
         }
+
+        
     }
 }

@@ -6,6 +6,7 @@ using PlantsVsZombies.Common.Systems;
 using Microsoft.Xna.Framework.Graphics;
 using PlantsVsZombies.Common.Players;
 using System;
+using System.Collections.Generic;
 
 namespace PlantsVsZombies
 {
@@ -38,13 +39,12 @@ namespace PlantsVsZombies
             return isInside;
         }
 
-        public class PlantSpecificUtils
+        public class PlantUtils
         {
-            public static bool CheckCanUse(Player player, int sunCost, string item, int cooldown)
+            public static bool CheckCanUse(Player player, int sunCost, int item, int cooldown)
             {
-
                 var Sun = player.GetModPlayer<Sun>();
-                var Timer = player.GetModPlayer<PlantTimers>().plantTimer;
+                var Timer = player.GetModPlayer<PlantTimers>()._plantTimers;
                 bool useTimerActive = Timer[item] > 0;
                 bool enoughSun = Sun.SunCurrent >= sunCost;
                 if (!useTimerActive && enoughSun)
@@ -54,6 +54,11 @@ namespace PlantsVsZombies
                     return true;
                 }
                 else { return false; }
+            }
+
+            public static void AddSunCost(ref List<TooltipLine> tooltips, Mod mod, int sunCost)
+            {
+                tooltips.Add(new TooltipLine(mod, "Sun Cost", $"Uses {sunCost} Sun"));
             }
             public static void SentrySpawningMethod(ref Vector2 position, int projHitboxY)
             {
@@ -72,16 +77,16 @@ namespace PlantsVsZombies
             /// </summary>
             /// <param name="item">The item you want to draw over's class name, as a string</param>
             /// <param name="cooldownTime">The cooldown for the item, in ticks, as an int</param>
-            public static void DrawPlantCooldown(ref SpriteBatch spriteBatch, ref Vector2 position, ref float scale, string item, int cooldownTime)
+            public static void DrawPlantCooldown(ref SpriteBatch spriteBatch, ref Vector2 position, ref float scale, int item, int cooldownTime)
             {
-                var timerDict = Main.LocalPlayer.GetModPlayer<PlantTimers>().plantTimer;
+                var timers = Main.LocalPlayer.GetModPlayer<PlantTimers>()._plantTimers;
                 Texture2D texture = (Texture2D)ModContent.Request<Texture2D>("PlantsVsZombies/Assets/Ui/GreyOutOverlay");
-                float overlayScaleY = timerDict[item];
+                float overlayScaleY = timers[item];
                 Vector2 newScale;
 
-                if (timerDict[item] <= 0) { return; }
+                if (timers[item] <= 0) { return; }
 
-                if (!(timerDict[item] <= 0))
+                if (!(timers[item] <= 0))
                 {
                     overlayScaleY += 0.1f;
                     Math.Clamp(overlayScaleY, 0, 1);
@@ -98,6 +103,37 @@ namespace PlantsVsZombies
                     scale: newScale,
                     SpriteEffects.None,
                     layerDepth: 0f);
+            }
+
+            public static NPC TargetClosestInArea(Projectile projectile, Vector2[] targettingArea, NPC target = null)
+            {
+                bool foundTarget = false;
+                Vector2 targetCenter = projectile.position;
+                Vector2 pCen = projectile.Center;
+                
+                for (int i = 0; i < Main.maxNPCs; i++)
+                {
+                    NPC potentialTarget = Main.npc[i];
+
+                    bool validPosition = IsPointInPolygon(targettingArea, potentialTarget.Center);
+
+                    if (potentialTarget.CanBeChasedBy() && validPosition)
+                    {
+                        float distanceBetween = Vector2.Distance(pCen, potentialTarget.Center);
+                        bool lineOfSight = Collision.CanHitLine(projectile.position, projectile.width, projectile.height,
+                                potentialTarget.position, potentialTarget.width, potentialTarget.height);
+                        bool closest = Vector2.Distance(projectile.Center, targetCenter) > distanceBetween;
+
+                        if ((closest || !foundTarget) && lineOfSight)
+                        {
+                            foundTarget = true;
+                            target = potentialTarget;
+                            targetCenter = potentialTarget.Center;
+                        } 
+                    }
+                }
+
+                return target;
             }
         }
 

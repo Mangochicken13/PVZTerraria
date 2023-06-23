@@ -20,19 +20,9 @@ namespace PlantsVsZombies.Content.Projectiles
             Projectile.hostile = false;
             Projectile.DamageType = ModContent.GetInstance<Plants>();
             Projectile.penetrate = 1;
-            Projectile.timeLeft = 1200;
+            Projectile.timeLeft = 1800;
             Projectile.ignoreWater = false;
             Projectile.tileCollide = true;
-        }
-
-        public override bool OnTileCollide(Vector2 oldVelocity)
-        {
-            Projectile.penetrate--;
-            if (Projectile.penetrate <= 0 )
-            {
-                Projectile.Kill();
-            }
-            return false;
         }
     }
 }

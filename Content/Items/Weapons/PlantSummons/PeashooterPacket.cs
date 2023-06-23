@@ -7,7 +7,7 @@ using PlantsVsZombies.Common.Systems;
 using PlantsVsZombies.Common.Players;
 using PlantsVsZombies.Content.Projectiles.PlantSentries;
 using Microsoft.Xna.Framework.Graphics;
-using static PlantsVsZombies.Utilities.PlantSpecificUtils;
+using static PlantsVsZombies.Utilities.PlantUtils;
 
 namespace PlantsVsZombies.Content.Items.Weapons.PlantSummons
 {
@@ -48,7 +48,7 @@ namespace PlantsVsZombies.Content.Items.Weapons.PlantSummons
 
         public override bool CanUseItem(Player player)
         {
-            if (CheckCanUse(player, sunCost, Name, cooldown))
+            if (CheckCanUse(player, sunCost, PlantID.PeashooterPacket, cooldown))
             {
                 return true;
             }
@@ -57,7 +57,7 @@ namespace PlantsVsZombies.Content.Items.Weapons.PlantSummons
 
         public override void PostDrawInInventory(SpriteBatch spriteBatch, Vector2 position, Rectangle frame, Color drawColor, Color itemColor, Vector2 origin, float scale)
         {
-            DrawPlantCooldown(ref spriteBatch, ref position, ref scale, Name, 450);
+            DrawPlantCooldown(ref spriteBatch, ref position, ref scale, PlantID.PeashooterPacket, cooldown);
         }
 
         public override void ModifyShootStats(Player player, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockback)

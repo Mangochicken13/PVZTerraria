@@ -3,6 +3,7 @@ using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
 using PlantsVsZombies.Common.Systems;
 using static PlantsVsZombies.Utilities;
+using System;
 
 //See Content/Projectiles/Sunflower for more detailed explanations of common functions
 
@@ -10,7 +11,7 @@ namespace PlantsVsZombies.Content.Projectiles.PlantSentries
 {
     public class Peashooter : ModProjectile
     {
-
+        int attackRandomTimer = Main.rand.Next(95, 106);
         public override void SetStaticDefaults()
         {
             // DisplayName.SetDefault("Peashooter"); -deprecated method, replaced by en-US.hjson
@@ -41,10 +42,7 @@ namespace PlantsVsZombies.Content.Projectiles.PlantSentries
             Projectile.velocity.Y += 0.5f;
             if (Projectile.velocity.Y > 12) { Projectile.velocity.Y = 12f; }
 
-            //variables used to target enemies, and their default values
-            bool foundTarget = false;
-            Vector2 targetCenter = Projectile.position;
-            NPC target = null;
+            NPC target;
 
             //creating a polygon of Vector2 points, where the peashooter should target enemies in
             //variable ppos is simply to shorten each line, as Projectile.Center is a relatively long term to type out
@@ -60,6 +58,39 @@ namespace PlantsVsZombies.Content.Projectiles.PlantSentries
                     pPos + new Vector2(-960, -64),
                     pPos + new Vector2(-960, 64),
                     pPos + new Vector2(-160, 64)};
+
+            
+
+            //iterating
+            Projectile.ai[0]++;
+
+            if (Projectile.ai[0] >= attackRandomTimer)
+            {
+                target = PlantUtils.TargetClosestInArea(Projectile, targettingArea, null);
+
+                if (target != null)
+                {
+                    Projectile.ai[0] = 0;
+                    attackRandomTimer = Main.rand.Next(95, 106);
+
+                    if ((Projectile.Center - target.Center).X > 0) { Projectile.spriteDirection = -1; }
+                    else if ((Projectile.Center - target.Center).X < 0) { Projectile.spriteDirection = 1; }
+
+                    Vector2 velocity = target.Center - Projectile.Center;
+                    velocity.Normalize();
+
+                    Vector2 spawnlocation = new(Projectile.spriteDirection * 12, -8);
+                    Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center + spawnlocation, velocity * 7f, ModContent.ProjectileType<Pea>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
+                }
+            }
+            /** This block has been moved to Utilities.cs, for easier coding of multiple different projectiles
+            //variables used to target enemies, and their default values
+            bool foundTarget = false;
+            Vector2 targetCenter = Projectile.position;
+            NPC target = null;
+
+            
+            
 
             //targetting function | Main.maxNPCs is the total available NPC slots, so this for loop cycles through every possible NPC
             for (int i = 0; i < Main.maxNPCs; i++)
@@ -92,14 +123,9 @@ namespace PlantsVsZombies.Content.Projectiles.PlantSentries
                         targetCenter = potentialTarget.Center;
                     }
                 }
-
-            }
-
-            //iterating
-            Projectile.ai[0]++;
-
-            //targetting code and spawning a secondary projectile
-            if (foundTarget && Projectile.ai[0] >= 100)
+            }**/
+            /**targetting code and spawning a secondary projectile
+            if (target != null && Projectile.ai[0] >= 100)
             {
                 //resetting iterable
                 Projectile.ai[0] = 0;
@@ -123,7 +149,7 @@ namespace PlantsVsZombies.Content.Projectiles.PlantSentries
 
                 //spawning the projectile that will actually damage enemies
                 Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center + spawnlocation, velocity * 7f, ModContent.ProjectileType<Pea>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
-            }
+            }**/
 
             //projectiles are killed/despawned when their player dies
             Player player = Main.player[Projectile.owner];
