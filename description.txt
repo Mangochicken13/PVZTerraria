@@ -1,7 +1,9 @@
 This is an in-progress mod themed around the Plants Vs Zombies franchise.
 
 Currently adds:
-	2 useable items (fires a projectile)
+	2 useable items (fires a projectile + has a (potentially temporary) crafting recipe)
 	1 damage class (plant damage)
 	1 resource (sun)
 	3 pickups (similar to hearts/mana stars)
+
+Now with a fancy new icon :sparkle:
