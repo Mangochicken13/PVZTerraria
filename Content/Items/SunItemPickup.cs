@@ -1,9 +1,9 @@
-﻿using Terraria;
-using Terraria.ModLoader;
+﻿using Microsoft.Xna.Framework;
+using PlantsVsZombies.Common.Players;
+using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
-using Microsoft.Xna.Framework;
-using PlantsVsZombies.Common.Players;
+using Terraria.ModLoader;
 
 namespace PlantsVsZombies.Content.Items
 {

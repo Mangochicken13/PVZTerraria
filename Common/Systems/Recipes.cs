@@ -1,8 +1,7 @@
-﻿using Terraria;
+﻿using PlantsVsZombies.Content.Items.Weapons.PlantSummons;
+using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.Localization;
-using PlantsVsZombies.Content.Items.Weapons.PlantSummons;
 
 namespace PlantsVsZombies.Common.Systems
 {
@@ -25,9 +24,9 @@ namespace PlantsVsZombies.Common.Systems
             recipe.AddTile(TileID.WorkBenches);
             recipe.Register();
 
-            recipe = Recipe.Create(ModContent.ItemType<RotobagaPacket>());
+            /*recipe = Recipe.Create(ModContent.ItemType<RotobagaPacket>());
             recipe.AddIngredient(ItemID.DirtBlock);
-            recipe.Register();
+            recipe.Register();*/
         }
     }
 }

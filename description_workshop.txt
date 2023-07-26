@@ -1,0 +1,17 @@
+This is an in-progress mod themed around the Plants Vs Zombies franchise.
+
+Currently adds:
+2 useable items (fires a projectile + has a (potentially temporary) crafting recipe)
+	- I recommend using recipe browser if you have trouble
+1 damage class (plant damage)
+1 resource (sun)
+	- It shows the UI when you hold one of the plant packets, or always if you toggle the config
+3 pickups (similar to hearts/mana stars)
+	- only one (25 sun) is currently naturally 
+
+Now with a fancy new icon :sparkle:
+If you have any questions feel free to hop into the discord at discord.gg/FGcyRCxVNR (the server is very small, and also barely properly set up as of yet)
+
+
+
+insert text with "Plants Vs Zombies" in it so it shows up when you search for "PvZ"

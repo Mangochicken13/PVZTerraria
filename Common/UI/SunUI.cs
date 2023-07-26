@@ -1,15 +1,13 @@
-﻿using Terraria;
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using PlantsVsZombies.Common.Configs;
+using PlantsVsZombies.Common.Players;
+using PlantsVsZombies.Common.Systems;
+using System.Collections.Generic;
+using Terraria;
+using Terraria.GameContent.UI.Elements;
 using Terraria.ModLoader;
 using Terraria.UI;
-using Terraria.GameContent;
-using Terraria.GameContent.UI.Elements;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using System.Collections.Generic;
-using System.Drawing.Text;
-using PlantsVsZombies.Common.Players;
-using PlantsVsZombies.Content.Items.Weapons.PlantSummons;
-using PlantsVsZombies.Common.Systems;
 
 namespace PlantsVsZombies.Common.UI
 {
@@ -51,27 +49,12 @@ namespace PlantsVsZombies.Common.UI
 
         public override void UpdateUI(GameTime gameTime)
         {
-            //only update the ui if it's visible, also using a case statement since a use case hasn't yet presented itself
+            //only update the ui if it's visible
             _lastUpdateUiGameTime = gameTime;
-            var InterfaceState = 0;
             if (MyInterface?.CurrentState != null)
             {
-                InterfaceState = 1;
+                MyInterface.Update(gameTime);
             }
-            else { InterfaceState = 0; }
-            switch (InterfaceState)
-            {
-                case 1:
-                    {
-                        MyInterface.Update(gameTime);
-                        break;
-                    }
-                default:
-                    {
-                        break;
-                    }
-            }
-            
         }
         public override void ModifyInterfaceLayers(List<GameInterfaceLayer> layers)
         {
@@ -100,9 +83,7 @@ namespace PlantsVsZombies.Common.UI
         private UIImage sunBg;
 
         //this method was my original way of checking the item the player was holding, until a better way was made known to me
-#pragma warning disable IDE0052 // Remove unread private members
-        readonly string[] plantWeapons = new string[2] { "PeashooterPacket", "SunflowerPacket" };
-#pragma warning restore IDE0052 // Remove unread private members
+        //readonly string[] plantWeapons = new string[2] { "PeashooterPacket", "SunflowerPacket" };
         public override void OnInitialize()
         {
             panel = new UIElement();
@@ -131,24 +112,26 @@ namespace PlantsVsZombies.Common.UI
         public override void Draw(SpriteBatch spriteBatch)
         {
             //this block makes the ui not show when you aren't holding a plant or packet
-            if (!Main.LocalPlayer.HeldItem.CountsAsClass<Plants>())
-                return;
+            if (Main.LocalPlayer.HeldItem.CountsAsClass<Plants>() || ModContent.GetInstance<PlantConfigs>().AlwaysShowSunCount)
+                base.Draw(spriteBatch);
+            else return;
 
-            base.Draw(spriteBatch);
         }
 
         public override void Update(GameTime gameTime)
         {
             //same as above, only updates if holding a plant
-            if (!Main.LocalPlayer.HeldItem.CountsAsClass<Plants>())
-                return;
+            if (Main.LocalPlayer.HeldItem.CountsAsClass<Plants>() || ModContent.GetInstance<PlantConfigs>().AlwaysShowSunCount)
+            {
+                var modPlayer = Main.LocalPlayer.GetModPlayer<Sun>();
+                value.SetText($"{modPlayer.SunCurrent}");
+                base.Update(gameTime);
+            }
+            else return;
 
-            var modPlayer = Main.LocalPlayer.GetModPlayer<Sun>();
 
-            value.SetText($"{modPlayer.SunCurrent}");
-            base.Update(gameTime);
         }
 
-        
+
     }
 }

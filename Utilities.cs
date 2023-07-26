@@ -1,16 +1,16 @@
 ﻿using Microsoft.Xna.Framework;
-using Terraria;
-using Terraria.ModLoader;
-using Terraria.ID;
-using PlantsVsZombies.Common.Systems;
 using Microsoft.Xna.Framework.Graphics;
 using PlantsVsZombies.Common.Players;
+using PlantsVsZombies.Common.Systems;
 using System;
 using System.Collections.Generic;
+using Terraria;
+using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace PlantsVsZombies
 {
-    public class Utilities 
+    public class Utilities
     {
         //this snippet is from dominoc925 on dominoc925.blogspot.com, edited to fit my use scenario
         //honestly, i don't exactly know how this does it, but i figured that it wasn't worth the time spent
@@ -31,7 +31,7 @@ namespace PlantsVsZombies
             {
                 if (((polygon[i].Y > point.Y) != (polygon[j].Y > point.Y)) &&
                 (point.X < (polygon[j].X - polygon[i].X) * (point.Y - polygon[i].Y) / (polygon[j].Y - polygon[i].Y) + polygon[i].X))
-                
+
                 {
                     isInside = !isInside;
                 }
@@ -47,6 +47,13 @@ namespace PlantsVsZombies
                 var Timer = player.GetModPlayer<PlantTimers>()._plantTimers;
                 bool useTimerActive = Timer[item] > 0;
                 bool enoughSun = Sun.SunCurrent >= sunCost;
+
+                if (!(!Main.tileSolid[Main.tile[Main.MouseWorld.ToTileCoordinates()].TileType] || Main.tileSolidTop[Main.tile[Main.MouseWorld.ToTileCoordinates()].TileType] || !Main.tile[Main.MouseWorld.ToTileCoordinates()].HasTile))
+                {
+                    return false;
+                }
+
+
                 if (!useTimerActive && enoughSun)
                 {
                     Sun.SunCurrent -= sunCost;
@@ -77,16 +84,16 @@ namespace PlantsVsZombies
             /// </summary>
             /// <param name="item">The item you want to draw over's class name, as a string</param>
             /// <param name="cooldownTime">The cooldown for the item, in ticks, as an int</param>
-            public static void DrawPlantCooldown(ref SpriteBatch spriteBatch, ref Vector2 position, ref float scale, int item, int cooldownTime)
+            public static void DrawPlantCooldown(ref SpriteBatch spriteBatch, ref Vector2 position, float scale, int item, int cooldownTime)
             {
                 var timers = Main.LocalPlayer.GetModPlayer<PlantTimers>()._plantTimers;
+                if (timers[item] <= 0) { return; }
+
                 Texture2D texture = (Texture2D)ModContent.Request<Texture2D>("PlantsVsZombies/Assets/Ui/GreyOutOverlay");
                 float overlayScaleY = timers[item];
                 Vector2 newScale;
 
-                if (timers[item] <= 0) { return; }
-
-                if (!(timers[item] <= 0))
+                if (timers[item] >= 0)
                 {
                     overlayScaleY += 0.1f;
                     Math.Clamp(overlayScaleY, 0, 1);
@@ -110,7 +117,7 @@ namespace PlantsVsZombies
                 bool foundTarget = false;
                 Vector2 targetCenter = projectile.position;
                 Vector2 pCen = projectile.Center;
-                
+
                 for (int i = 0; i < Main.maxNPCs; i++)
                 {
                     NPC potentialTarget = Main.npc[i];
@@ -129,7 +136,7 @@ namespace PlantsVsZombies
                             foundTarget = true;
                             target = potentialTarget;
                             targetCenter = potentialTarget.Center;
-                        } 
+                        }
                     }
                 }
 
