@@ -1,7 +1,6 @@
-﻿using Terraria;
+﻿using PlantsVsZombies.Common.Systems;
+using Terraria;
 using Terraria.ModLoader;
-using Microsoft.Xna.Framework;
-using PlantsVsZombies.Common.Systems;
 
 namespace PlantsVsZombies.Content.Projectiles
 {

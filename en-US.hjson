@@ -51,10 +51,26 @@ Mods: {
 		}
 
 		Keybinds: {
-			"Toggle UI.DisplayName": Toggle  U I
-			"Add 50 sun.DisplayName": Add 50 sun
+			"Toggle UI.DisplayName": Toggle  UI (Dev Tool)
+			"Add 50 sun.DisplayName": Add 50 sun (Dev Tool)
 		}
 
 		NPCs.PvZZombie.DisplayName: Pv Z Zombie
+
+		Configs: {
+			PlantConfigs: {
+				DisplayName: Plant Configs
+
+				ShowJoinMessage: {
+					Label: Show Join Message
+					Tooltip: ""
+				}
+
+				AlwaysShowSunCount: {
+					Label: Always Show Sun Count
+					Tooltip: ""
+				}
+			}
+		}
 	}
 }

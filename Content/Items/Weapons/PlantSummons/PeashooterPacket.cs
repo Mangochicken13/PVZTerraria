@@ -13,8 +13,8 @@ namespace PlantsVsZombies.Content.Items.Weapons.PlantSummons
 {
     public class PeashooterPacket : ModItem
     {
-        private int sunCost = 100;
-        private int cooldown = 450;
+        private int sunCost;
+        private readonly int cooldown = 450;
         /*
         public override void SetStaticDefaults()
         {
@@ -38,6 +38,8 @@ namespace PlantsVsZombies.Content.Items.Weapons.PlantSummons
             Item.width = 30;
             Item.useTime = 10;
             Item.useAnimation = 10;
+
+            sunCost = 100;
         }
 
         public override void ModifyTooltips(List<TooltipLine> tooltips)
@@ -57,7 +59,7 @@ namespace PlantsVsZombies.Content.Items.Weapons.PlantSummons
 
         public override void PostDrawInInventory(SpriteBatch spriteBatch, Vector2 position, Rectangle frame, Color drawColor, Color itemColor, Vector2 origin, float scale)
         {
-            DrawPlantCooldown(ref spriteBatch, ref position, ref scale, PlantID.PeashooterPacket, cooldown);
+            DrawPlantCooldown(ref spriteBatch, ref position, scale, PlantID.PeashooterPacket, cooldown);
         }
 
         public override void ModifyShootStats(Player player, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockback)

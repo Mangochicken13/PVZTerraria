@@ -1,12 +1,10 @@
-﻿using Terraria.ModLoader;
-using PlantsVsZombies.Content.Projectiles;
-using Terraria.ID;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using Terraria.ModLoader;
 using static PlantsVsZombies.Utilities.PlantUtils;
 
 namespace PlantsVsZombies.Content.Items.Weapons.PlantSummons
 {
-    
+
     public class RotobagaPacket : ModItem
     {
         int sunCost = 175;

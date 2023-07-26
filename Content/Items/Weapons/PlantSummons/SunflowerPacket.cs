@@ -1,7 +1,9 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using PlantsVsZombies.Common.Players;
 using PlantsVsZombies.Common.Systems;
 using PlantsVsZombies.Content.Projectiles.PlantSentries;
+using System;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
@@ -14,6 +16,7 @@ namespace PlantsVsZombies.Content.Items.Weapons.PlantSummons
     {
         private int sunCost;
         private readonly int cooldown = 600;
+        public override string Texture => "PlantsVsZombies/Content/Items/Weapons/PlantSummons/PeashooterPacket";
         public override void SetStaticDefaults()
         {
             // DisplayName.SetDefault("Sunflower");
@@ -49,7 +52,7 @@ namespace PlantsVsZombies.Content.Items.Weapons.PlantSummons
         }
         public override void PostDrawInInventory(SpriteBatch spriteBatch, Vector2 position, Rectangle frame, Color drawColor, Color itemColor, Vector2 origin, float scale)
         {
-            DrawPlantCooldown(ref spriteBatch, ref position, ref scale, PlantID.PeashooterPacket, cooldown);
+            DrawPlantCooldown(ref spriteBatch, ref position, scale, PlantID.SunflowerPacket, cooldown);
         }
 
         public override void ModifyShootStats(Player player, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockback)
