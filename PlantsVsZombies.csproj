@@ -2,14 +2,18 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <Import Project="..\tModLoader.targets" />
   <PropertyGroup>
-    <AssemblyName>MangoTech</AssemblyName>
+    <AssemblyName>PlantsVsZombies</AssemblyName>
     <TargetFramework>net6.0</TargetFramework>
     <PlatformTarget>AnyCPU</PlatformTarget>
     <LangVersion>latest</LangVersion>
   </PropertyGroup>
   <ItemGroup>
+    <AdditionalFiles Remove="Assets\Extra\**" />
+    <Compile Remove="Assets\Extra\**" />
     <Compile Remove="OtherResources\**" />
+    <EmbeddedResource Remove="Assets\Extra\**" />
     <EmbeddedResource Remove="OtherResources\**" />
+    <None Remove="Assets\Extra\**" />
     <None Remove="OtherResources\**" />
   </ItemGroup>
   <ItemGroup>

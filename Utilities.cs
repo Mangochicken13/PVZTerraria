@@ -5,6 +5,7 @@ using PlantsVsZombies.Common.Systems;
 using System;
 using System.Collections.Generic;
 using Terraria;
+using Terraria.GameContent;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -81,6 +82,7 @@ namespace PlantsVsZombies
 
             /// <summary>
             /// This method is used to quickly draw the overlay to visually show the player how long until they can use an item again
+            /// Note to self: try and find a way to mask the overlay to only draw over the inventory slot
             /// </summary>
             /// <param name="item">The item you want to draw over's class name, as a string</param>
             /// <param name="cooldownTime">The cooldown for the item, in ticks, as an int</param>
@@ -89,7 +91,11 @@ namespace PlantsVsZombies
                 var timers = Main.LocalPlayer.GetModPlayer<PlantTimers>()._plantTimers;
                 if (timers[item] <= 0) { return; }
 
-                Texture2D texture = (Texture2D)ModContent.Request<Texture2D>("PlantsVsZombies/Assets/Ui/GreyOutOverlay");
+                scale = Main.inventoryScale;
+
+                //Texture2D texture = (Texture2D)ModContent.Request<Texture2D>("PlantsVsZombies/Assets/Ui/GreyOutOverlay");
+                Texture2D texture = (Texture2D)TextureAssets.InventoryBack;
+                
                 float overlayScaleY = timers[item];
                 Vector2 newScale;
 
@@ -102,11 +108,11 @@ namespace PlantsVsZombies
                 else { newScale = new Vector2(scale); }
 
                 spriteBatch.Draw(texture,
-                    position: new Vector2(position.X, position.Y + (27 * scale)),
-                    sourceRectangle: new Rectangle(0, 0, 54, 54),
+                    position: new Vector2(position.X, position.Y + (25 * scale)),
+                    sourceRectangle: new Rectangle(0, 0, 50, 50),
                     color: new Color(15, 15, 15, 128),
                     rotation: 0f,
-                    origin: new Vector2(27, 54),
+                    origin: new Vector2(25, 50),
                     scale: newScale,
                     SpriteEffects.None,
                     layerDepth: 0f);

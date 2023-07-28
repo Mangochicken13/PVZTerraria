@@ -1,5 +1,5 @@
 *.vsidx
-*.csproj
 .vs/
-*.v2
-Assets/Ui/ideal.gif
+obj/
+bin/
+Assets/Extra

@@ -16,13 +16,11 @@ namespace PlantsVsZombies.Content.Items.Weapons.PlantSummons
     {
         private int sunCost;
         private readonly int cooldown = 600;
-        public override string Texture => "PlantsVsZombies/Content/Items/Weapons/PlantSummons/PeashooterPacket";
         public override void SetStaticDefaults()
         {
             // DisplayName.SetDefault("Sunflower");
             // Tooltip.SetDefault("An incredibly happy flower\nThey seem to be able to produce fun size pockets of sun energy for your use");
         }
-
         public override void SetDefaults()
         {
             Item.useStyle = ItemUseStyleID.Swing;
@@ -41,7 +39,6 @@ namespace PlantsVsZombies.Content.Items.Weapons.PlantSummons
         {
             AddSunCost(ref tooltips, Mod, sunCost);
         }
-
         public override bool CanUseItem(Player player)
         {
             if (CheckCanUse(player, sunCost, PlantID.SunflowerPacket, cooldown))
@@ -54,7 +51,6 @@ namespace PlantsVsZombies.Content.Items.Weapons.PlantSummons
         {
             DrawPlantCooldown(ref spriteBatch, ref position, scale, PlantID.SunflowerPacket, cooldown);
         }
-
         public override void ModifyShootStats(Player player, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockback)
         {
             SentrySpawningMethod(ref position, 46);
