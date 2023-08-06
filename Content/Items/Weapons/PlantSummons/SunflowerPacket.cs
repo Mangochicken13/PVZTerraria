@@ -55,6 +55,27 @@ namespace PlantsVsZombies.Content.Items.Weapons.PlantSummons
         {
             SentrySpawningMethod(ref position, 46);
         }
+
+        public override void AddRecipes()
+        {
+            CreateRecipe() //sunflower version
+                .AddIngredient(ItemID.DirtBlock, 8)
+                .AddIngredient(ItemID.Sunflower, 1)
+                .AddTile(TileID.WorkBenches)
+                .Register();
+
+            CreateRecipe() //daybloom version
+                .AddIngredient(ItemID.DirtBlock, 10)
+                .AddIngredient(ItemID.Daybloom, 2)
+                .AddTile(TileID.WorkBenches)
+                .Register();
+
+            CreateRecipe() //daybloom seeds version
+                .AddIngredient(ItemID.DirtBlock, 15)
+                .AddIngredient(ItemID.Daybloom, 4)
+                .AddTile(TileID.WorkBenches)
+                .Register();
+        }
     }
 }
 
