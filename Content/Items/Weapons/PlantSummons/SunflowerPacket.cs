@@ -1,9 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using PlantsVsZombies.Common.Players;
 using PlantsVsZombies.Common.Systems;
 using PlantsVsZombies.Content.Projectiles.PlantSentries;
-using System;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
@@ -15,7 +13,7 @@ namespace PlantsVsZombies.Content.Items.Weapons.PlantSummons
     public class SunflowerPacket : ModItem
     {
         private int sunCost;
-        private readonly int cooldown = 600;
+        private int cooldown = 600;
         public override void SetStaticDefaults()
         {
             // DisplayName.SetDefault("Sunflower");
@@ -29,7 +27,7 @@ namespace PlantsVsZombies.Content.Items.Weapons.PlantSummons
             Item.height = 36;
             Item.useTime = 10;
             Item.useAnimation = 10;
-            Item.DamageType = ModContent.GetInstance<Plants>();
+            Item.DamageType = ModContent.GetInstance<Plants>(); //this makes the ui show when holding the item, even though this one doesn't do any damage
             Item.shoot = ModContent.ProjectileType<Sunflower>();
             Item.noMelee = true;
 
@@ -49,7 +47,7 @@ namespace PlantsVsZombies.Content.Items.Weapons.PlantSummons
         }
         public override void PostDrawInInventory(SpriteBatch spriteBatch, Vector2 position, Rectangle frame, Color drawColor, Color itemColor, Vector2 origin, float scale)
         {
-            DrawPlantCooldown(ref spriteBatch, ref position, scale, PlantID.SunflowerPacket, cooldown);
+            DrawPlantCooldown(ref spriteBatch, ref position, PlantID.SunflowerPacket, cooldown);
         }
         public override void ModifyShootStats(Player player, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockback)
         {

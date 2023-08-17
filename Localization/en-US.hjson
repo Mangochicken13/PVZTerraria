@@ -38,6 +38,11 @@ Mods: {
 				DisplayName: Rotobaga Packet
 				Tooltip: ""
 			}
+
+			BananaLauncherPacket: {
+				DisplayName: Banana Launcher Packet
+				Tooltip: ""
+			}
 		}
 
 		DamageClasses.Plants.DisplayName: Plant Damage
@@ -48,6 +53,9 @@ Mods: {
 			Sunflower.DisplayName: Sunflower
 			Rotobaga.DisplayName: Rotobaga
 			RotobagaShot.DisplayName: Rotobaga Shot
+			BananaLauncher.DisplayName: Banana Launcher
+			BananaMissile.DisplayName: Banana Missile
+			BananaTargetReticle.DisplayName: Banana Target Reticle
 		}
 
 		Keybinds: {

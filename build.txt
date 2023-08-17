@@ -1,3 +1,4 @@
 displayName = Plants Vs Terraria
 author = Mangochicken
 version = 0.0.4.1
+buildIgnore = .vs/*, bin/*, obj/*

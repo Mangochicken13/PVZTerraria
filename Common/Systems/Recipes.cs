@@ -9,7 +9,7 @@ namespace PlantsVsZombies.Common.Systems
     {
         public override void AddRecipes()
         {
-            Recipe recipe;
+            //Recipe recipe;
 
             //adding recipes for the mod's items, so they are obtainable naturally
 

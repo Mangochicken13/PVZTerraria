@@ -1,12 +1,11 @@
-﻿using Terraria;
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using PlantsVsZombies.Common.Systems;
+using PlantsVsZombies.Content.Projectiles.PlantSentries;
+using System.Collections.Generic;
+using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Microsoft.Xna.Framework;
-using System.Collections.Generic;
-using PlantsVsZombies.Common.Systems;
-using PlantsVsZombies.Common.Players;
-using PlantsVsZombies.Content.Projectiles.PlantSentries;
-using Microsoft.Xna.Framework.Graphics;
 using static PlantsVsZombies.Utilities.PlantUtils;
 
 namespace PlantsVsZombies.Content.Items.Weapons.PlantSummons
@@ -14,7 +13,7 @@ namespace PlantsVsZombies.Content.Items.Weapons.PlantSummons
     public class PeashooterPacket : ModItem
     {
         private int sunCost;
-        private readonly int cooldown = 450;
+        private int cooldown = 450;
         /*
         public override void SetStaticDefaults()
         {
@@ -30,7 +29,7 @@ namespace PlantsVsZombies.Content.Items.Weapons.PlantSummons
             Item.damage = 11;
             Item.useStyle = ItemUseStyleID.Swing;
             Item.knockBack = 0.2f;
-            Item.consumable = false;
+            //Item.consumable = false; - unnecessary, defaults to false
             Item.shoot = ModContent.ProjectileType<Peashooter>();
             Item.noMelee = true;
 
@@ -59,7 +58,7 @@ namespace PlantsVsZombies.Content.Items.Weapons.PlantSummons
 
         public override void PostDrawInInventory(SpriteBatch spriteBatch, Vector2 position, Rectangle frame, Color drawColor, Color itemColor, Vector2 origin, float scale)
         {
-            DrawPlantCooldown(ref spriteBatch, ref position, scale, PlantID.PeashooterPacket, cooldown);
+            DrawPlantCooldown(ref spriteBatch, ref position, PlantID.PeashooterPacket, cooldown);
         }
 
         public override void ModifyShootStats(Player player, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockback)

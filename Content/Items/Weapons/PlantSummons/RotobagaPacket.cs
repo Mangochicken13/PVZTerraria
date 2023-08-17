@@ -11,7 +11,7 @@ namespace PlantsVsZombies.Content.Items.Weapons.PlantSummons
     public class RotobagaPacket : ModItem
     {
         int sunCost;
-        readonly int cooldown = 1200;
+        int cooldown = 1200;
         public override void SetDefaults()
         {
             QuickItem.SetPlantSummon(this, 40, 40, 5, 0, 15, 15);
@@ -33,7 +33,7 @@ namespace PlantsVsZombies.Content.Items.Weapons.PlantSummons
         }
         public override void PostDrawInInventory(SpriteBatch spriteBatch, Vector2 position, Rectangle frame, Color drawColor, Color itemColor, Vector2 origin, float scale)
         {
-            DrawPlantCooldown(ref spriteBatch, ref position, scale, PlantID.RotobagaPacket, cooldown);
+            DrawPlantCooldown(ref spriteBatch, ref position, PlantID.RotobagaPacket, cooldown);
         }
         public override void ModifyShootStats(Player player, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockback)
         {

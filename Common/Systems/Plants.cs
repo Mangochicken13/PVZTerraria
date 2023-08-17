@@ -31,7 +31,7 @@ namespace PlantsVsZombies.Common.Systems
 
         public override bool GetEffectInheritance(DamageClass damageClass)
         {
-            //this damage class gets any effects that would apply to the below damage classes, such as a fire effect or lifesteal effect
+            //this damage class gets any effects that would apply to the below damage classes, such as a fire debuff effect or lifesteal effect
             if (damageClass == Summon)
                 return true;
             if (damageClass == Magic)

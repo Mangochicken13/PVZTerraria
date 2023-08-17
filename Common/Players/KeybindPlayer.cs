@@ -6,7 +6,7 @@ using PlantsVsZombies.Common.Systems;
 
 namespace PlantsVsZombies.Common.Players
 {
-    internal class KeybindPlayer : ModPlayer
+    public class KeybindPlayer : ModPlayer
     {
         //these key bindings do certain things in the game, namely toggling ui, and adding some extra sun
         //both of these are dev features, and won't stick around for the full mod release

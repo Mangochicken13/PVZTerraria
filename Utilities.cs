@@ -77,6 +77,7 @@ namespace PlantsVsZombies
                     potentialTile += new Point(0, 1);
                 }
                 position = potentialTile.ToWorldCoordinates() - new Vector2(0, (projHitboxY / 2) + 8);
+                position.X = Main.MouseWorld.X;
                 if (Main.tile[potentialTile].IsHalfBlock) { position += new Vector2(0, 8); }
             }
 
@@ -86,16 +87,19 @@ namespace PlantsVsZombies
             /// </summary>
             /// <param name="item">The item you want to draw over's class name, as a string</param>
             /// <param name="cooldownTime">The cooldown for the item, in ticks, as an int</param>
-            public static void DrawPlantCooldown(ref SpriteBatch spriteBatch, ref Vector2 position, float scale, int item, int cooldownTime)
+            public static void DrawPlantCooldown(ref SpriteBatch spriteBatch, ref Vector2 position, int item, int cooldownTime)
             {
                 var timers = Main.LocalPlayer.GetModPlayer<PlantTimers>()._plantTimers;
-                if (timers[item] <= 0) { return; }
+                float scale;
+                if (timers[item] <= 0) { return; } //stop the method if the timer is less than or equal to 0
 
                 scale = Main.inventoryScale;
 
                 //Texture2D texture = (Texture2D)ModContent.Request<Texture2D>("PlantsVsZombies/Assets/Ui/GreyOutOverlay");
-                Texture2D texture = (Texture2D)TextureAssets.InventoryBack;
                 
+                //Get the texture used for the back of the inventory sprites
+                Texture2D texture = (Texture2D)TextureAssets.InventoryBack;
+
                 float overlayScaleY = timers[item];
                 Vector2 newScale;
 
@@ -155,6 +159,8 @@ namespace PlantsVsZombies
     //This whole class is a bit unreadable, but it's designed to make carbon copy items faster to make
     //It's a bit limited in this implementation, so likely won't be used, but I'll copy this into my modding tools mod
     //Original concept came from the Starlight River, adapted code from GabeHasWon's Verdant Mod
+    //Update on usage, I think I won't use this purely so that people potentially trying to scrape code from the github can do so more easily by just finding the packet they want to use,
+    //cont. rather than heading here and sifting through
     public class QuickItem
     {
         public static void SetBase(ModItem item, int width, int height, int useStyle = ItemUseStyleID.Swing, bool consumable = true)

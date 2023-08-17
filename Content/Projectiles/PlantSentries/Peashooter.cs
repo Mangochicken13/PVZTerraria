@@ -219,9 +219,5 @@ namespace PlantsVsZombies.Content.Projectiles.PlantSentries
             fallThrough = false;
             return true;
         }
-        public override bool MinionContactDamage()
-        {
-            return false;
-        }
     }
 }
