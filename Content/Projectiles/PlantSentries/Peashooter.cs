@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework;
 using PlantsVsZombies.Common.Systems;
 using static PlantsVsZombies.Utilities;
 using System;
+using PlantsVsZombies.Content.Items.Weapons.PlantSummons;
 
 //See Content/Projectiles/Sunflower for more detailed explanations of common functions
 
@@ -66,7 +67,7 @@ namespace PlantsVsZombies.Content.Projectiles.PlantSentries
 
             if (Projectile.ai[0] >= attackRandomTimer)
             {
-                target = PlantUtils.TargetClosestInArea(Projectile, targettingArea, null);
+                target = BasePlantPacket.TargetClosestInArea(Projectile, targettingArea, null);
 
                 if (target != null)
                 {

@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using PlantsVsZombies.Common.Systems;
+using PlantsVsZombies.Content.Items.Weapons.PlantSummons;
 using System;
 using Terraria;
 using Terraria.DataStructures;
@@ -56,7 +57,7 @@ namespace PlantsVsZombies.Content.Projectiles.PlantSentries
 
             if (Projectile.ai[1] >= attackCooldown)
             {
-                NPC target = Utilities.PlantUtils.TargetClosestInArea(Projectile, targettingArea, null);
+                NPC target = BasePlantPacket.TargetClosestInArea(Projectile, targettingArea, null);
 
                 if (target != null)
                 {
