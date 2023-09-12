@@ -17,7 +17,7 @@ namespace PlantsVsZombies.Content.Items.Weapons.PlantSummons
 
             SunCost = 175;
             Cooldown = 1200;
-            ID = PlantID.RotobagaPacket;
+            ID = PlantID.Rotobaga;
         }
 
         public override void ModifyShootStats(Player player, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockback)

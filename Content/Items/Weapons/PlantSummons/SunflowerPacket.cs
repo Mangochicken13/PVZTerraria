@@ -21,7 +21,7 @@ namespace PlantsVsZombies.Content.Items.Weapons.PlantSummons
             // These are the custom fields created in the base class, used for all the basic functions
             SunCost = 50;
             Cooldown = 600;
-            ID = PlantID.SunflowerPacket;
+            ID = PlantID.Sunflower;
         }
 
         public override void ModifyShootStats(Player player, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockback)

@@ -23,7 +23,7 @@ namespace PlantsVsZombies.Content.Items.Weapons.PlantSummons
             // Fields made by the base class, check their uses in BasePlantPacket.cs
             SunCost = 100;
             Cooldown = 450;
-            ID = PlantID.PeashooterPacket;
+            ID = PlantID.Peashooter;
         }
 
         public override void ModifyShootStats(Player player, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockback)

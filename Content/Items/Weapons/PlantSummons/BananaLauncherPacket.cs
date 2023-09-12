@@ -19,7 +19,7 @@ namespace PlantsVsZombies.Content.Items.Weapons.PlantSummons
 
             SunCost = 700;
             Cooldown = 6000;
-            ID = PlantID.BananaLauncherPacket;
+            ID = PlantID.BananaLauncher;
         }
 
         public override bool CanUseItem(Player player)
