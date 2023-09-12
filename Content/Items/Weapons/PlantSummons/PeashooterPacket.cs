@@ -1,8 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using PlantsVsZombies.Common.Systems;
 using PlantsVsZombies.Content.Projectiles.PlantSentries;
-using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -10,60 +8,32 @@ using static PlantsVsZombies.Utilities.PlantUtils;
 
 namespace PlantsVsZombies.Content.Items.Weapons.PlantSummons
 {
-    public class PeashooterPacket : ModItem
+    public class PeashooterPacket : BasePlantPacket
     {
-        private int sunCost;
-        private int cooldown = 450;
-        /*
-        public override void SetStaticDefaults()
-        {
-            // DisplayName.SetDefault("Peashooter"); -again, deprecated method
-            // Tooltip.SetDefault("They appear to have come from another world\nMaybe they can help with the newly empowered zombies that have been turning up recently");
-        }
-        */
+        public static readonly int DefaultSunCost = 100;
+        public static readonly int DeafultCooldown = 450;
 
         public override void SetDefaults()
         {
-            //setting all the stats for the item. Important one is the damage type, as that is used by my ui
-            Item.DamageType = ModContent.GetInstance<Plants>();
+            base.SetDefaults();
+            
             Item.damage = 11;
-            Item.useStyle = ItemUseStyleID.Swing;
             Item.knockBack = 0.2f;
-            //Item.consumable = false; - unnecessary, defaults to false
+
             Item.shoot = ModContent.ProjectileType<Peashooter>();
-            Item.noMelee = true;
 
             Item.height = 20;
             Item.width = 30;
-            Item.useTime = 10;
-            Item.useAnimation = 10;
 
-            sunCost = 100;
-        }
-
-        public override void ModifyTooltips(List<TooltipLine> tooltips)
-        {
-            //adding the sun cost to the tooltip, as it is a modded requirement
-            tooltips.Add(new TooltipLine(Mod, "Sun Cost", $"Uses {sunCost} Sun"));
-        }
-
-        public override bool CanUseItem(Player player)
-        {
-            if (CheckCanUse(player, sunCost, PlantID.PeashooterPacket, cooldown))
-            {
-                return true;
-            }
-            else return false;
-        }
-
-        public override void PostDrawInInventory(SpriteBatch spriteBatch, Vector2 position, Rectangle frame, Color drawColor, Color itemColor, Vector2 origin, float scale)
-        {
-            DrawPlantCooldown(ref spriteBatch, ref position, PlantID.PeashooterPacket, cooldown);
+            // Fields made by the base class, check their uses in BasePlantPacket.cs
+            SunCost = 100;
+            Cooldown = 450;
+            ID = PlantID.PeashooterPacket;
         }
 
         public override void ModifyShootStats(Player player, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockback)
         {
-            SentrySpawningMethod(ref position, 42);
+            GroundedSentrySpawningMethod(42);
         }
 
         public override void AddRecipes()

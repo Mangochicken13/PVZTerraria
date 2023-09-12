@@ -1,42 +1,31 @@
-﻿using System.Collections.Generic;
-using Terraria.ModLoader;
+﻿using Terraria.ModLoader;
 
 namespace PlantsVsZombies.Common.Players
 {
     public class PlantTimers : ModPlayer
     {
-        public int[] _plantTimers;
-
-        //public Dictionary<string, int> plantTimer = new();
+        public int[] plantTimers;
         public override void Initialize()
-        {   /*remember 60 ticks per second, cooldowns in seconds listed after each line as comments
-            plantTimer.Add("SunflowerPacket", 0); //10s
-            plantTimer.Add("PeashooterPacket", 0); //7.5s
-            plantTimer.Add("RotobagaPacket", 0); //15s
-            */
-
-            _plantTimers = new int[PlantID.Count];
+        {
+            // Setting the length of the timer array to the amount of plants.
+            // PlantID.Count should always be 1 higher than the highest value plant, but is updated manually.
+            // Note to self: Be sure to double check that you have incremented it's value with every new plant added.
+            plantTimers = new int[PlantID.Count];
         }
 
         public override void PostUpdateMiscEffects()
         {
-            /*foreach (string i in plantTimer.Keys)
-            {
-                if (plantTimer[i] > 0)
-                {
-                    plantTimer[i]--;
-                }
-            }*/
-
+            // Decrease each timer by 1 per frame.
+            // Keep note of this method, it might become costly with a lot of plants.
             for (int i = 0; i < PlantID.Count; i++)
             {
-                if (_plantTimers[i] > 0)
+                if (plantTimers[i] > 0)
                 {
-                    _plantTimers[i]--;
+                    plantTimers[i]--;
                 }
             }
         }
 
-        
+
     }
 }

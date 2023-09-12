@@ -20,7 +20,7 @@ namespace PlantsVsZombies.Content.Projectiles.PlantSentries
             Projectile.width = 30;
             Projectile.damage = 8;
             Projectile.netImportant = true;
-            Projectile.DamageType = ModContent.GetInstance<Plants>();
+            Projectile.DamageType = ModContent.GetInstance<PlantDamage>();
             DrawOffsetX = 0;
             DrawOriginOffsetY = 0;
         }
@@ -111,7 +111,7 @@ namespace PlantsVsZombies.Content.Projectiles.PlantSentries
             Projectile.width = 12;
             Projectile.height = 12;
             Projectile.friendly = true;
-            Projectile.DamageType = ModContent.GetInstance<Plants>();
+            Projectile.DamageType = ModContent.GetInstance<PlantDamage>();
             Projectile.penetrate = 2;
             Projectile.timeLeft = 1200;
             Projectile.ignoreWater = true;

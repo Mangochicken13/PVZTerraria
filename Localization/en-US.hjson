@@ -1,28 +1,24 @@
 Mods: {
 	PlantsVsZombies: {
+		CommonItemTooltip: {
+			SunCostText: Uses {0} sun
+			CooldownText: "{0} seconds cooldown"
+		}
+
 		Items: {
 			SunItemLarge: {
 				DisplayName: Large Sun
-				Tooltip: ""
+				Tooltip: "{$SunItemMedium.Tooltip}"
 			}
 
 			SunItemMedium: {
 				DisplayName: Sun
-				Tooltip: ""
+				Tooltip: The power of the sun, in the palm of my hand
 			}
 
 			SunItemSmall: {
 				DisplayName: Small Sun
-				Tooltip: ""
-			}
-
-			PeashooterPacket: {
-				DisplayName: Peashooter Packet
-				Tooltip:
-					'''
-					They appear to have come from another world
-					Maybe they can help with the newly empowered zombies that have been turning up recently
-					'''
+				Tooltip: "{$SunItemMedium.Tooltip}"
 			}
 
 			SunflowerPacket: {
@@ -31,6 +27,15 @@ Mods: {
 					'''
 					An incredibly happy flower
 					They seem to be able to produce fun size pockets of sun energy for your use
+					'''
+			}
+
+			PeashooterPacket: {
+				DisplayName: Peashooter Packet
+				Tooltip:
+					'''
+					They appear to have come from another world
+					Maybe they can help with the newly empowered zombies that have been turning up recently
 					'''
 			}
 
@@ -43,9 +48,18 @@ Mods: {
 				DisplayName: Banana Launcher Packet
 				Tooltip: ""
 			}
+
+			MagnifyingGlass: {
+				DisplayName: Magnifying Glass
+				Tooltip: 
+					'''
+					Reduces sun usage by 10%
+					Further reduces sun usage by 5
+					'''
+			}
 		}
 
-		DamageClasses.Plants.DisplayName: Plant Damage
+		DamageClasses.PlantDamage.DisplayName: Summon Damage
 
 		Projectiles: {
 			Pea.DisplayName: Pea
@@ -62,8 +76,6 @@ Mods: {
 			"Toggle UI.DisplayName": Toggle  UI (Dev Tool)
 			"Add 50 sun.DisplayName": Add 50 sun (Dev Tool)
 		}
-
-		NPCs.PvZZombie.DisplayName: Pv Z Zombie
 
 		Configs: {
 			PlantConfigs: {

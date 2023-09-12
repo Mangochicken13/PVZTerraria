@@ -29,7 +29,7 @@ namespace PlantsVsZombies.Common.Players
             if (KeybindSystem.Dev_ExtraSun.JustPressed)
             {
                 var Sun = Player.GetModPlayer<Sun>();
-                Sun.SunCurrent += 50;
+                Sun.CurrentSun += 50;
             }
         }
     }

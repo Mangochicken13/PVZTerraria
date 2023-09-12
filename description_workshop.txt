@@ -1,14 +1,16 @@
 This is an in-progress mod themed around the Plants Vs Zombies franchise.
 
+The Plants are all going to be moved into the summon damage class, as a sub-sub-class of sentries. They do not require sentry slots as of yet, although some of the more powerful ones may in the future.
+
+A majority of the sprites in this mod are a work in progress, as such, don't have high hopes for incredible graphics at the moment. I will still try to get them to a serviceable level before making anything obtainable, but I'm a programmer first and artist second.
+
 Currently adds:
   2 useable items (fires a projectile + has a (potentially temporary) crafting recipe)
 	- I recommend using recipe browser if you have trouble
-  1 damage class (plant damage)
-    - Inherits 20% of summon damage's modifiers to armor penetration and crit chance, as well as all generic modifiers (think the 4% damage increase accessory modifiers)
   1 resource (sun)
 	- It shows the UI when you hold one of the plant packets, or always shows if you toggle the config
   3 pickups (similar to hearts/mana stars)
-	- only one (25 sun) is currently naturally available (from the sunflower)
+	- only one (25 sun) is currently naturally available (from the sunflower), others will be used in future with other sun producers
 
 Now with a fancy new icon :sparkle:
 

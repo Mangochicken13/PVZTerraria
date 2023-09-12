@@ -111,8 +111,8 @@ namespace PlantsVsZombies.Common.UI
 
         public override void Draw(SpriteBatch spriteBatch)
         {
-            //this block makes the ui not show when you aren't holding a plant or packet
-            if (Main.LocalPlayer.HeldItem.CountsAsClass<Plants>() || ModContent.GetInstance<PlantConfigs>().AlwaysShowSunCount)
+            // Only draws the UI if holding a plant, or the config to always show is true.
+            if (Main.LocalPlayer.HeldItem.CountsAsClass<PlantDamage>() || ModContent.GetInstance<PlantConfigs>().AlwaysShowSunCount)
                 base.Draw(spriteBatch);
             else return;
 
@@ -120,11 +120,10 @@ namespace PlantsVsZombies.Common.UI
 
         public override void Update(GameTime gameTime)
         {
-            //same as above, only updates if holding a plant
-            if (Main.LocalPlayer.HeldItem.CountsAsClass<Plants>() || ModContent.GetInstance<PlantConfigs>().AlwaysShowSunCount)
+            if (Main.LocalPlayer.HeldItem.CountsAsClass<PlantDamage>() || ModContent.GetInstance<PlantConfigs>().AlwaysShowSunCount)
             {
                 var modPlayer = Main.LocalPlayer.GetModPlayer<Sun>();
-                value.SetText($"{modPlayer.SunCurrent}");
+                value.SetText($"{modPlayer.CurrentSunDisplay}");
                 base.Update(gameTime);
             }
             else return;

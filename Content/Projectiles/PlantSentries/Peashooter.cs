@@ -29,7 +29,7 @@ namespace PlantsVsZombies.Content.Projectiles.PlantSentries
 
             Projectile.hostile = false;
             Projectile.friendly = false;
-            Projectile.DamageType = ModContent.GetInstance<Plants>();
+            Projectile.DamageType = ModContent.GetInstance<PlantDamage>();
             Projectile.penetrate = -1;
             Projectile.timeLeft = 7200;
             Projectile.usesLocalNPCImmunity = true;

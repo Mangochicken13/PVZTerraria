@@ -9,8 +9,8 @@ using Terraria.ModLoader;
 
 namespace PlantsVsZombies.Content.Projectiles.PlantSentries
 {
-    //TODO: Make animation frames for the projectile, sort out the animation
-    //cont: also get sound effects for banana firing
+    // TODO: Make animation frames for the projectile, sort out the animation in code
+    // cont: also get sound effects for banana firing
     public class BananaLauncher : ModProjectile
     {
         public ref float AI_State => ref Projectile.ai[0];
@@ -19,14 +19,15 @@ namespace PlantsVsZombies.Content.Projectiles.PlantSentries
         {
             Wait,
             Shoot,
-            Cooldown
+            Cooldown,
+            Reload
         }
 
         internal Vector2 storedTarget;
 
         public override void SetStaticDefaults()
         {
-            //Main.projFrames[Projectile.type] = 12;
+            // Main.projFrames[Projectile.type] = 12; //Setting the amount of frames, unused due to not having said frames
         }
 
         public override void SetDefaults()
@@ -35,9 +36,9 @@ namespace PlantsVsZombies.Content.Projectiles.PlantSentries
             Projectile.width = 52;
 
             Projectile.tileCollide = true;
-            Projectile.DamageType = ModContent.GetInstance<Plants>();
-            Projectile.timeLeft = 18000;
-            Projectile.netImportant = true;
+            Projectile.DamageType = ModContent.GetInstance<PlantDamage>();
+            Projectile.timeLeft = 18000; // 5 minutes lifespan, longer than others due to its cooldown and heavy nature.
+            Projectile.netImportant = true; // Sync to clients when they join a server with one of these projectiles present
 
         }
 
@@ -57,12 +58,9 @@ namespace PlantsVsZombies.Content.Projectiles.PlantSentries
                 Projectile.ai[2]++;
             }
             
-            //if 1/4s have passed and the launcher isn't currently shooting reset the target
+            // If 1/4s have passed and the launcher isn't currently shooting reset the target
             if (Projectile.ai[2] >= 15 && AI_State != (float)State.Shoot) { storedTarget = Vector2.Zero; }
 
-            //gravity
-            Projectile.velocity.Y += 0.5f;
-            if (Projectile.velocity.Y > 12) { Projectile.velocity.Y = 12f; }
 
             if (Projectile.owner == Main.myPlayer)
             {
@@ -79,38 +77,46 @@ namespace PlantsVsZombies.Content.Projectiles.PlantSentries
                         break;
                 }
             }
+
+            //gravity
+            Projectile.velocity.Y += 0.5f;
+            if (Projectile.velocity.Y > 12) { Projectile.velocity.Y = 12f; }
         }
 
-        public void Wait(Vector2 target)
+        public void Wait(Vector2 storedTarget)
         {
-            if (target != Vector2.Zero)
+            if (storedTarget != Vector2.Zero)
             {
                 AI_State = (float)State.Shoot; //increment state
             }
             //Projectile.frame = 0;
         }
 
-        public void Shoot(Vector2 target)
+        public void Shoot(Vector2 storedTarget)
         {
             Shoot_Timer++;
             //Projectile.frame = (int)Shoot_Timer / 2;
             if (Shoot_Timer >= 20)
             {
-                Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, new Vector2(0, -14), ModContent.ProjectileType<BananaMissile>(), Projectile.damage, 5f, Main.myPlayer, 0, target.X, target.Y);
+                //spawn the missile, initial velocity of 42f upwards, due to it running 3 ai() calls per frame
+                //Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, new Vector2(0, -14), ModContent.ProjectileType<BananaMissile>(), Projectile.damage, 5f, Main.myPlayer, 0, storedTarget.X, storedTarget.Y);
+                
                 //target = Vector2.Zero; //reset target variable after passing position in via the ai[1] & ai[2] parameters
                 //Main.player[Projectile.owner].GetModPlayer<BananaTarget>().target = Vector2.Zero;
-                AI_State = (float)State.Cooldown; //increment state
+                
+                AI_State = (float)State.Cooldown; // Increment state
             }
         }
 
         public void Cooldown()
         {
+            if (Shoot_Timer == 21) { Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, new Vector2(0, -14), ModContent.ProjectileType<BananaMissile>(), Projectile.damage, 5f, Main.myPlayer, 0, storedTarget.X, storedTarget.Y); }
             Shoot_Timer++;
 
             if (Shoot_Timer >= 1200)
             {
                 Shoot_Timer = 0;
-                AI_State = (float)State.Wait; //increment state 
+                AI_State = (float)State.Wait; // Increment state 
             }
         }
 
@@ -126,15 +132,16 @@ namespace PlantsVsZombies.Content.Projectiles.PlantSentries
         }
     }
 
+    // Explosive projectile, the one that does damage
     public class BananaMissile : ModProjectile
     {
-        Vector2 target;
+        // TODO: make a better sprite for this at some point
+        internal Vector2 target;
         public override void SetDefaults()
         {
-            //Projectile.scale = 2f;
             Projectile.width = 20;
             Projectile.height = 68;
-            Projectile.DamageType = ModContent.GetInstance<Plants>();
+            Projectile.DamageType = ModContent.GetInstance<PlantDamage>();
             Projectile.tileCollide = false;
             Projectile.ignoreWater = true;
             Projectile.timeLeft = 3600;
@@ -143,37 +150,48 @@ namespace PlantsVsZombies.Content.Projectiles.PlantSentries
         }
         public override void OnSpawn(IEntitySource source)
         {
+            // This projectile gets created with a target in its ai[1] and ai[2] fields, which gets passed into an internal variable
             target = new Vector2((int)Projectile.ai[1], (int)Projectile.ai[2]);
+
+            // Iterate through projectiles, if 'i' is the targetting reticle and intersects with the target of the missile set its ai[1] to 1
+            for (int i = 0; i < Main.maxProjectiles; i++)
+            {
+                if (Main.projectile[i].Hitbox.Intersects(new Rectangle((int)Projectile.ai[1], (int)Projectile.ai[2], 1, 1)) && Main.projectile[i].type == ModContent.ProjectileType<BananaTargetReticle>())
+                {
+                    Main.projectile[i].ai[1] = 1;
+                }
+            }
             Projectile.ai[1] = 0;
             Projectile.ai[2] = 0;
         }
         public override void AI()
         {
             Projectile.ai[0]++;
-            if (Projectile.ai[0] == 180)
+            if (Main.netMode != NetmodeID.MultiplayerClient)
             {
-                //Vector2 currentPos = Projectile.position;
-                float distanceX = target.X - Projectile.position.X;
-                int direction;
-
-                //checking the direction
-                if (distanceX > 0)
+                if (Projectile.ai[0] == 180)
                 {
-                    direction = -1; //left
-                }
-                else if (distanceX < 0)
-                {
-                    direction = 1; //right
-                }
-                else { direction = 0; }
+                    /*
+                    //Vector2 currentPos = Projectile.position;
+                    float distanceX = target.X - Projectile.position.X;
+                    int direction;
 
-                float XDiff = (distanceX / 100) * direction;
-                Projectile.position = target + new Vector2(XDiff, -(180 * 14));
+                    //checking the direction, maybe remove this in favour of a random offset
 
-                Vector2 velocity = 14f * Vector2.Normalize(target - Projectile.Center);
-                Projectile.velocity = velocity; //new(velocity.X, 14f);
-                Projectile.timeLeft = 189;
-                Projectile.netUpdate = true;
+                    
+                    if (distanceX > 0) { direction = -1; } //left
+                    else if (distanceX < 0) { direction = 1; } //right
+                    else { direction = 0; }
+
+                    float XDiff = (distanceX / 100) * direction;
+                    */
+                    Projectile.position = target + new Vector2(Main.rand.Next(-160, 161), -(180 * 14));
+
+                    Vector2 velocity = 14f * Vector2.Normalize(target - Projectile.Center);
+                    Projectile.velocity = velocity; //new(velocity.X, 14f);
+                    Projectile.timeLeft = 189;
+                    Projectile.netUpdate = true;
+                }
             }
 
             if (Projectile.owner == Main.myPlayer && Projectile.timeLeft <= 9)
@@ -184,7 +202,7 @@ namespace PlantsVsZombies.Content.Projectiles.PlantSentries
                 Projectile.friendly = true;
                 Projectile.knockBack = 10f;
 
-                Projectile.Resize(240, 240);
+                Projectile.Resize(240, 240); // NOTE TO SELF: Potentially change the magic number 240 to a variable: the hitbox is 15x15 tiles; 7.5 tiles from the center
 
                 Projectile.netUpdate = true;
             }
@@ -192,6 +210,9 @@ namespace PlantsVsZombies.Content.Projectiles.PlantSentries
 
         public override void Kill(int timeLeft)
         {
+            // Copied from example mod's explosion code, slightly 
+
+
             SoundEngine.PlaySound(SoundID.Item14, Projectile.position);
             // Smoke Dust spawn
             for (int i = 0; i < 50; i++)
@@ -221,13 +242,15 @@ namespace PlantsVsZombies.Content.Projectiles.PlantSentries
                 gore.velocity.Y -= 1.5f;
             }
         }
-    }
+    } 
 
+    // Shows the player where the target is
     public class BananaTargetReticle : ModProjectile
     {
+        internal bool isAimedAt;
         public override void SetDefaults()
         {
-            Projectile.timeLeft = 140;
+            Projectile.timeLeft = 137;
             Projectile.height = 36;
             Projectile.width = 34;
         }
@@ -236,9 +259,13 @@ namespace PlantsVsZombies.Content.Projectiles.PlantSentries
         {
             for (int i = 0; i < Main.maxProjectiles; i++)
             {
+                // TODO: Try to check if any of the targets are where a missile is headed, and not kill those ones
                 if (i != Projectile.identity && Main.projectile[i].type == ModContent.ProjectileType<BananaTargetReticle>())
                 {
-                    Main.projectile[i].Kill();
+                    if (Main.projectile[i].ai[1] != 1 && Projectile.ai[0] >= 25)
+                    {
+                        Main.projectile[i].Kill();
+                    }
                 }
             }
             Projectile.scale = 2f;
@@ -246,27 +273,28 @@ namespace PlantsVsZombies.Content.Projectiles.PlantSentries
 
         public override void AI()
         {
-            if (Projectile.ai[0] < 16)
+            if (Projectile.ai[0] < 26)
             {
-                Projectile.scale = 1 + (15 - Projectile.ai[0]) / 15;
+                Projectile.scale = 1 + (25 - Projectile.ai[0]) / 25;
             }
             Projectile.ai[0]++;
 
             if (Projectile.ai[0] == 25)
             {
+                // Trying to make the target despawn if no missiles have fired
                 int p = 0;
                 for (int i = 0; i < Main.maxProjectiles; i++)
                 {
-                    if (Main.projectile[i].type == ModContent.ProjectileType<BananaMissile>())
+                    if (Main.projectile[i].type == ModContent.ProjectileType<BananaMissile>() && Main.projectile[i].active == true)
                     {
                         p++;
                     }
                 }
-                if (p == 0)
+                if (p == 0 || Projectile.ai[1] != 1)
                 {
                     Projectile.Kill();
                 }
             }
         }
-    }
+    } 
 }

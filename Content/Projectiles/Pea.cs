@@ -17,7 +17,7 @@ namespace PlantsVsZombies.Content.Projectiles
             Projectile.height = 16;
             Projectile.friendly = true;
             Projectile.hostile = false;
-            Projectile.DamageType = ModContent.GetInstance<Plants>();
+            Projectile.DamageType = ModContent.GetInstance<PlantDamage>();
             Projectile.penetrate = 1;
             Projectile.timeLeft = 1800;
             Projectile.ignoreWater = false;

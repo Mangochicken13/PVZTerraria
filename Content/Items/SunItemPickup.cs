@@ -11,55 +11,58 @@ namespace PlantsVsZombies.Content.Items
     //all their classes are very similar, so only SunItemMedium is fully commented
     public class SunItemMedium : ModItem
     {
+        public int regen;
         public override void SetStaticDefaults()
         {
-            // DisplayName.SetDefault("Sun");
-
             Main.RegisterItemAnimation(Item.type, new DrawAnimationVertical(5, 4));
 
-            //makes the item animate when dropped in the world
+            // Makes the item animate when dropped in the world
             ItemID.Sets.AnimatesAsSoul[Item.type] = true;
+            ItemID.Sets.IgnoresEncumberingStone[Item.type] = true;
         }
         public override void SetDefaults()
         {
-            //sets the item's hitbox
+            // Sets the item's hitbox
             Item.height = 17;
             Item.width = 17;
+
+            regen = 25;
         }
 
         public override void PostUpdate()
         {
-            //makes the items emit a bit of light, since they are sun after all
+            // <akes the items emit a bit of light, since they are sun after all
             Lighting.AddLight(Item.Center, Color.LightYellow.ToVector3() * 0.65f * Main.essScale);
         }
         public override bool ItemSpace(Player player)
         {
-            //lets you pick up the item even if you have a full inventory
-            return true;
+            return true; // Lets you pick up the item even if you have a full inventory
         }
         public override bool OnPickup(Player player)
         {
-            //this code makes the item add to your sun, then delete itself, as it is never supposed to be available in the inventory
-            var modPlayer = Main.LocalPlayer.GetModPlayer<Sun>();
-            modPlayer.RegenAmount += 25;
+            // Makes the item add to your sun, then delete itself, as it is never supposed to be available in the inventory
+            var sun = player.GetModPlayer<Sun>();
+            sun.CurrentSun += regen;
             return false;
         }
     }
 
     public class SunItemSmall : ModItem
     {
+        int regen;
         public override void SetStaticDefaults()
         {
-            // DisplayName.SetDefault("Sun");
-
             Main.RegisterItemAnimation(Item.type, new DrawAnimationVertical(5, 4));
 
             ItemID.Sets.AnimatesAsSoul[Item.type] = true;
+            ItemID.Sets.IgnoresEncumberingStone[Item.type] = true;
         }
         public override void SetDefaults()
         {
             Item.height = 12;
             Item.width = 12;
+
+            regen = 15;
         }
 
         public override void PostUpdate()
@@ -73,28 +76,30 @@ namespace PlantsVsZombies.Content.Items
 
         public override bool OnPickup(Player player)
         {
-            var modPlayer = Main.LocalPlayer.GetModPlayer<Sun>();
-            modPlayer.RegenAmount += 15;
+            var sun = Main.LocalPlayer.GetModPlayer<Sun>();
+            sun.CurrentSun += regen;
             return false;
         }
     }
 
     public class SunItemLarge : ModItem
     {
+        public int regen;
         public override string Texture => "PlantsVsZombies/Content/Items/SunItemSmall";
         public override void SetStaticDefaults()
         {
-            // DisplayName.SetDefault("Sun");
-
             Main.RegisterItemAnimation(Item.type, new DrawAnimationVertical(5, 4));
 
             ItemID.Sets.AnimatesAsSoul[Item.type] = true;
+            ItemID.Sets.IgnoresEncumberingStone[Item.type] = true;
         }
         public override void SetDefaults()
         {
             Item.height = 12;
             Item.width = 12;
             Item.scale = 2.2f;
+
+            regen = 50;
         }
 
         public override void PostUpdate()
@@ -109,7 +114,7 @@ namespace PlantsVsZombies.Content.Items
         public override bool OnPickup(Player player)
         {
             var modPlayer = Main.LocalPlayer.GetModPlayer<Sun>();
-            modPlayer.RegenAmount += 50;
+            modPlayer.CurrentSun += regen;
             return false;
         }
     }
