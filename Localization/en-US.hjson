@@ -51,7 +51,7 @@ Mods: {
 
 			MagnifyingGlass: {
 				DisplayName: Magnifying Glass
-				Tooltip: 
+				Tooltip:
 					'''
 					Reduces sun usage by 10%
 					Further reduces sun usage by 5

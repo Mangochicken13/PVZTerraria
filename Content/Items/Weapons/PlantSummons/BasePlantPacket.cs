@@ -30,6 +30,7 @@ namespace PlantsVsZombies.Content.Items.Weapons.PlantSummons
 
             Cooldown = 60;
             SunCost = 10;
+            ID = 0;
         }
 
         public override void ModifyTooltips(List<TooltipLine> tooltips)
@@ -95,7 +96,6 @@ namespace PlantsVsZombies.Content.Items.Weapons.PlantSummons
 
             sun.CurrentSun -= (int)sunCost; // Cast here is theoretically unnecessary due to sunCost being returned as an int earlier, but the computer doesn't know that
             
-            if (plantID < 0) { plantID = PlantID.Null; }
             timers[plantID] = cooldown;
         }
         #endregion
@@ -118,7 +118,7 @@ namespace PlantsVsZombies.Content.Items.Weapons.PlantSummons
             // Get the texture used for the back of the inventory sprites
             var texture = (Texture2D)TextureAssets.InventoryBack;
 
-            float overlayScaleY = timers[item] / cooldown;
+            float overlayScaleY = timers[item] / (float)cooldown;
 
             var newScale = new Vector2(scale, scale * overlayScaleY);
 
