@@ -1,18 +1,13 @@
 ﻿using Microsoft.Xna.Framework;
-using PlantsVsZombies.Common.Systems;
 using PlantsVsZombies.Content.Projectiles.PlantSentries;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using static PlantsVsZombies.Utilities.PlantUtils;
 
 namespace PlantsVsZombies.Content.Items.Weapons.PlantSummons
 {
     public class PeashooterPacket : BasePlantPacket
     {
-        public static readonly int DefaultSunCost = 100;
-        public static readonly int DeafultCooldown = 450;
-
         public override void SetDefaults()
         {
             base.SetDefaults();

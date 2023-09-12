@@ -7,8 +7,6 @@ namespace PlantsVsZombies.Content.Items.Weapons.PlantSummons
 
     public class RotobagaPacket : BasePlantPacket
     {
-        public static readonly int DefaultSunCost = 175;
-        public static readonly int DefaultCooldown = 1200;
         public override void SetDefaults()
         {
             base.SetDefaults();
@@ -18,7 +16,7 @@ namespace PlantsVsZombies.Content.Items.Weapons.PlantSummons
             Item.shoot = ModContent.ProjectileType<Projectiles.PlantSentries.Rotobaga>();
 
             SunCost = 175;
-            Cooldown = DefaultCooldown;
+            Cooldown = 1200;
             ID = PlantID.RotobagaPacket;
         }
 
