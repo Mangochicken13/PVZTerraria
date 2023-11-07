@@ -28,7 +28,11 @@ namespace PlantsVsZombies.Content.Items.Weapons.PlantSummons
 
         public override void ModifyShootStats(Player player, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockback)
         {
-            GroundedSentrySpawningMethod(42);
+            player.FindSentryRestingSpot(type, out int worldX, out int worldY, out int _);
+            int pushupY = 42 / 2; // Note to Self: find some way to access the projectile hitbox and use that instead of magic number 42 (the Y of the peashooter hitbox)
+            position = new Vector2(worldX, worldY - pushupY);
+            
+            //GroundedSentrySpawningMethod(42);
         }
 
         public override void AddRecipes()

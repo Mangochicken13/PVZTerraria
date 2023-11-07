@@ -10,7 +10,7 @@ using Terraria.ModLoader;
 namespace PlantsVsZombies.Content.Projectiles.PlantSentries
 {
     // TODO: Make animation frames for the projectile, sort out the animation in code
-    // cont: also get sound effects for banana firing
+    // also get sound effects for banana firing
     public class BananaLauncher : ModProjectile
     {
         public ref float AI_State => ref Projectile.ai[0];
@@ -28,6 +28,8 @@ namespace PlantsVsZombies.Content.Projectiles.PlantSentries
         public override void SetStaticDefaults()
         {
             // Main.projFrames[Projectile.type] = 12; //Setting the amount of frames, unused due to not having said frames
+
+            
         }
 
         public override void SetDefaults()
@@ -40,6 +42,7 @@ namespace PlantsVsZombies.Content.Projectiles.PlantSentries
             Projectile.timeLeft = 18000; // 5 minutes lifespan, longer than others due to its cooldown and heavy nature.
             Projectile.netImportant = true; // Sync to clients when they join a server with one of these projectiles present
 
+            Projectile.ContinuouslyUpdateDamageStats = true;
         }
 
         public override void AI()
