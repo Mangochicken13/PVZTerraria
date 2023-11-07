@@ -1,5 +1,6 @@
 ﻿using PlantsVsZombies.Common.Configs;
 using Terraria;
+using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace PlantsVsZombies.Common.Players
@@ -17,6 +18,23 @@ namespace PlantsVsZombies.Common.Players
                     You can [c/FF00000:disable this message] in the config files of this mod
                     Have fun playing!
                     """);
+            }
+
+            if (Main.netMode != NetmodeID.Server)
+            {
+                bool updateMessageShown = ModContent.GetInstance<PlantConfigs>().UpdateMessageShown;
+
+                if (!updateMessageShown)
+                {
+                    Main.NewText(
+                        $"""
+                        Updated to version {ModContent.GetInstance<PlantsVsZombies>().Version}
+                        This is just a small maintanence update fixing the cooldown UI not drawing properly (how did i miss that?)
+                        If you find any bugs please mention them on the workshop page's bug reporting discussion.
+                        This message will only show this one time, future version updates may have their own messages too.
+                        """);
+                    ModContent.GetInstance<PlantConfigs>().UpdateMessageShown = true;
+                }
             }
         }
     }
