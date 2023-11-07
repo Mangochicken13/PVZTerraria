@@ -1,0 +1,7 @@
+CommonItemTooltip: {
+	SunCostText: Uses {0} sun
+	CooldownText: "{0} seconds cooldown"
+}
+
+DamageClasses.PlantDamage.DisplayName: Summon Damage
+PlantConfigs.DontTouchHeader: "[c/56A224:Please Don't Touch]"

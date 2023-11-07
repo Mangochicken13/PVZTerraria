@@ -1,0 +1,18 @@
+PlantConfigs: {
+	DisplayName: Plant Configs
+
+	ShowJoinMessage: {
+		Label: Show Join Message
+		Tooltip: ""
+	}
+
+	AlwaysShowSunCount: {
+		Label: Always Show Sun Count
+		Tooltip: ""
+	}
+
+	ShowUpdateMessages: {
+		Label: Show Update Messages
+		Tooltip: ""
+	}
+}

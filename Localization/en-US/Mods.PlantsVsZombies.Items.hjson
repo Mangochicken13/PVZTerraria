@@ -1,0 +1,51 @@
+SunItemLarge: {
+	DisplayName: Large Sun
+	Tooltip: "{$SunItemMedium.Tooltip}"
+}
+
+SunItemMedium: {
+	DisplayName: Sun
+	Tooltip: The power of the sun, in the palm of my hand
+}
+
+SunItemSmall: {
+	DisplayName: Small Sun
+	Tooltip: "{$SunItemMedium.Tooltip}"
+}
+
+SunflowerPacket: {
+	DisplayName: Sunflower Packet
+	Tooltip:
+		'''
+		An incredibly happy flower
+		They seem to be able to produce fun size pockets of sun energy for your use
+		'''
+}
+
+PeashooterPacket: {
+	DisplayName: Peashooter Packet
+	Tooltip:
+		'''
+		They appear to have come from another world
+		Maybe they can help with the newly empowered zombies that have been turning up recently
+		'''
+}
+
+RotobagaPacket: {
+	DisplayName: Rotobaga Packet
+	Tooltip: ""
+}
+
+BananaLauncherPacket: {
+	DisplayName: Banana Launcher Packet
+	Tooltip: ""
+}
+
+MagnifyingGlass: {
+	DisplayName: Magnifying Glass
+	Tooltip:
+		'''
+		Reduces sun usage by 10%
+		Further reduces sun usage by 5
+		'''
+}

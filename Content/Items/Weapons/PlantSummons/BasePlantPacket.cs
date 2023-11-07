@@ -19,6 +19,7 @@ namespace PlantsVsZombies.Content.Items.Weapons.PlantSummons
         public short ID;
 
         #region Overrides
+
         public override void SetDefaults()
         {
             Item.useStyle = ItemUseStyleID.Swing;
@@ -38,6 +39,7 @@ namespace PlantsVsZombies.Content.Items.Weapons.PlantSummons
             int index = tooltips.FindIndex(line => line.Name == "Tooltip0");
             if (index >= 0)
             {
+                // double check that this is the right method of doing this
                 tooltips.Insert(index, new TooltipLine(Mod, "SunCostText", Language.GetTextValue(Mod.GetLocalizationKey("CommonItemTooltip.SunCostText"), GetTrueSunCost(SunCost))));
                 tooltips.Insert(index + 1, new TooltipLine(Mod, "CooldownText", Language.GetTextValue(Mod.GetLocalizationKey("CommonItemTooltip.CooldownText"), (Cooldown / 60f).ToString())));
             }
@@ -90,7 +92,7 @@ namespace PlantsVsZombies.Content.Items.Weapons.PlantSummons
         public static void UseItemConsumeSun(Player player, float sunCost, short plantID, int cooldown)
         {
             var sun = player.GetModPlayer<Sun>();
-            var timers = player.GetModPlayer<PlantTimers>().plantTimers;
+            int[] timers = player.GetModPlayer<PlantTimers>().plantTimers;
 
             sunCost = GetTrueSunCost(sunCost);
 
@@ -151,7 +153,7 @@ namespace PlantsVsZombies.Content.Items.Weapons.PlantSummons
             }
 
             // Converts the tile coordinates back to world coordinates, adds 8 to bring the projectile to the top of the tile,
-            // then ads half of its hitbox height so it spawns directly on the ground
+            // then adds half of its hitbox height so it spawns directly on the ground
             var position = potentialTile.ToWorldCoordinates() - new Vector2(0, (projHitboxY / 2) + 8);
             position.X = Main.MouseWorld.X; // Makes the X coords the same as where the item was used
 
